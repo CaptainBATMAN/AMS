@@ -1,4 +1,6 @@
-<% page language="java" contentType="text/html; charset = UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset = UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page import="com.ams.*" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,12 +28,12 @@
 <body>
 
 
-<%  
-if(session.getAttribute("username")==null){
-    resp.sendRedirect("../login.jsp");
-}
-
-%>
+<%
+    response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+    if(session.getAttribute("username")==null){
+        String loginURL = "http://localhost:8080/ams/login.jsp";
+        response.sendRedirect(loginURL);    }
+    %>
 
     <div class="div-center">
         <div id="nav-div" style="margin-bottom: 0em;">
@@ -46,7 +48,9 @@ if(session.getAttribute("username")==null){
                             <a class="nav-link" href="#"></a>
                         </li>
                         <li class="nav-item">
-                            <button id="logOutBtn" class="btn btn-danger btn-sm" href="#">Log Out</button>
+                            <form action="../logout" method="POST">
+                            <button  type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#">Log Out</button>
+                            </form>
                         </li>
                     </ul>
                 </div>

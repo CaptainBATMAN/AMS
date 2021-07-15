@@ -33,7 +33,7 @@
                 <div class="card-body ">
                     <!-- here goes the action  -->
                     <!-- form starts here -->
-                    <form action="./loginAuth">
+                    <form action="./loginAuth" method="POST">
 
                         <div class="form-group col " style="margin-top: 1em; ">
                             <input id="usrname" class="form-control " placeholder="Enter Username" name="usrname" type="email ">

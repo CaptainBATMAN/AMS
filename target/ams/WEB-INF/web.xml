@@ -6,16 +6,6 @@
   <display-name>Archetype Created Web Application</display-name>
 
 <servlet>
-  <servlet-name>servlet</servlet-name>
-  <servlet-class>com.ams.servlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-  <servlet-name>servlet</servlet-name>
-  <url-pattern>/api</url-pattern>
-</servlet-mapping>
-
-<servlet>
   <servlet-name>loginAuth</servlet-name>
   <servlet-class>com.ams.loginAuth</servlet-class>
 </servlet>
@@ -25,5 +15,12 @@
   <url-pattern>/loginAuth</url-pattern>
 </servlet-mapping>
 
-
+<servlet>
+  <servlet-name>logout</servlet-name>
+  <servlet-class>com.ams.logout</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>logout</servlet-name>
+  <url-pattern>/logout</url-pattern>
+</servlet-mapping>
 </web-app>

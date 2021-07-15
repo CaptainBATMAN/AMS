@@ -10,18 +10,18 @@ import javax.servlet.http.HttpSession;
 
 public class loginAuth extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String usrname = req.getParameter("usrname");
-        String pwd = req.getParameter("pwd");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String usrname = request.getParameter("usrname");
+        String pwd = request.getParameter("pwd");
 
         if(usrname.equals("mohan") && pwd.equals("batman")){
 
-            HttpSession session = req.getSession();
+            HttpSession session = request.getSession();
             session.setAttribute("username", usrname);
-            resp.sendRedirect("./secure/studentHome.jsp");   
+            response.sendRedirect("./secure/studentHome.jsp");   
         }
         else{
-            resp.sendRedirect("login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 }
