@@ -6,8 +6,7 @@ $(document).ready(function() {
     }
 
     var currentDate = new Date();
-    initDates("fromDate", currentDate);
-    initDates("toDate", currentDate);
+    initDates("date", currentDate);
 
     function initDates(elementId, selectedDate) {
         var selector = '#' + elementId;

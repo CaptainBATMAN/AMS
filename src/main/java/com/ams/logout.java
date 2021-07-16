@@ -12,8 +12,8 @@ public class logout extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.removeAttribute("username");
+        session.removeAttribute("user");
         session.invalidate();
-        resp.sendRedirect("http://localhost:8080/ams/login.jsp");
+        resp.sendRedirect("./login.jsp");
     }
 }

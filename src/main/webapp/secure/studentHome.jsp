@@ -28,8 +28,8 @@
 <body>
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-    if(session.getAttribute("username")==null){
-        String loginURL = "http://localhost:8080/ams/login.jsp";
+    if(session.getAttribute("user")==null){
+        String loginURL = "/ams/login.jsp";
         response.sendRedirect(loginURL);    }
     %>
 

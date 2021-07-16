@@ -9,11 +9,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student</title>
+    <title>Faculty</title>
     <script src="../imported/jquery-3.6.0.js"></script>
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <link rel="stylesheet" href="../custom_styles/customStyles.css">
-    <script src="../custom_scripts/student_home.js"></script>
+    <script src="../custom_scripts/faculty_home.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
@@ -37,7 +37,9 @@
         <div id="nav-div" style="margin-bottom: 0em;">
             <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark font-poppins" style="color: turquoise;">
                 <a class="navbar-brand p-0" style="margin-right: 50em;" href="./studentHome.html">AMS</a>
-                <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="checkToggle()">
+                <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                    onclick="checkToggle()">
                     <span id="toggle-button" class="bi bi-caret-down"></span>
                 </a>
                 <div class="navbar-collapse collapse" id="navbarNav">
@@ -47,7 +49,8 @@
                         </li>
                         <li class="nav-item">
                             <form action="../logout" method="POST">
-                            <button  type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#">Log Out</button>
+                                <button type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#">Log
+                                    Out</button>
                             </form>
                         </li>
                     </ul>
@@ -63,15 +66,28 @@
                             <h6 class="modal-title text-white font-weight-bold m-0">Fetch Attendance Reports </h6>
                         </div>
                         <div class="card-body ">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <p class="font-weight-bolder">From Date: <input type=" text " class="input-sm form-control " id="fromDate"></p>
-                                </div>
-                                <div class="form-group col-md-6 ">
-                                    <p class="font-weight-bolder">To Date: <input type="text " class="input-sm form-control " id="toDate"></p>
+                            <div class="form-group col-md-6">
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6 ">
+                                        <p class="font-weight-bolder">Date: <input type="text"
+                                                class="input-sm form-control " id="date"></p>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <p class="font-weight-bolder">Time: <input type="time"
+                                                class="input-sm form-control" id="timeInput"></p>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <p class="font-weight-bolder">Google Meet Code :
+                                            <input id="gmeetcode" class="input-sm form-control" type="text"
+                                                maxlength="9" name="gmeetcode">
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <button id="fetchButton" type="submit" style="cursor: pointer; " class="btn btn-success btn-sm ">Fetch</button>
+                            <button id="fetchButton" type="submit" style="cursor: pointer; margin-left: 1.2em; margin-top: -1.5em;"
+                                class="btn btn-success btn-sm ">Fetch</button>
                         </div>
                     </div>
                 </div>

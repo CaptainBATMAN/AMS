@@ -17,7 +17,7 @@
         <!-- Just a black navigation bar -->
         <div id="nav-div" style="margin-bottom: 0em;">
             <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark font-poppins" style="color: turquoise;">
-                <a class="navbar-brand p-0" style="margin-right: 50em;" href="Login.html">AMS</a>
+                <a class="navbar-brand p-0" style="margin-right: 50em;" href="login.jsp">AMS</a>
             </nav>
         </div>
         <!-- navigation bar ends here -->
@@ -34,7 +34,7 @@
                     <form action="./loginAuth" method="POST">
 
                         <div class="form-group col " style="margin-top: 1em; ">
-                            <input id="usrname" class="form-control " placeholder="Enter Username" name="usrname" type="email ">
+                            <input id="emailId" class="form-control" placeholder="Enter Email" name="emailId" type="email">
                         </div>
 
                         <div class="form-group col " style="margin-top: 1.5em; ">
