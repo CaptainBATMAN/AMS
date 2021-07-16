@@ -26,8 +26,6 @@
 </head>
 
 <body>
-
-
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
     if(session.getAttribute("username")==null){
@@ -62,7 +60,7 @@
                 <div class="col-12 col-lg-10 mt-2">
                     <div class=" card border-dark ">
                         <div class="card-header bg-dark p-1">
-                            <h6 class="modal-title text-white font-weight-bold m-0"> Attendance Reports </h6>
+                            <h6 class="modal-title text-white font-weight-bold m-0">Fetch Attendance Reports </h6>
                         </div>
                         <div class="card-body ">
                             <div class="form-row">
