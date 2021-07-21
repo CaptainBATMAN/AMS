@@ -16,7 +16,7 @@ public class fetchStudentAttendanceStudentHome {
 
     public void fetchAttendanceReportForStudentHome() {
         String collectionName = "24-05-2021";
-
+        
         ConnectionString connectionString = new ConnectionString("mongodb://locahost:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
         MongoDatabase database = mongoClient.getDatabase("university");

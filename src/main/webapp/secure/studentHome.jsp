@@ -28,9 +28,20 @@
 <body>
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-    if(session.getAttribute("user")==null){
-        String loginURL = "/ams/login.jsp";
-        response.sendRedirect(loginURL);    }
+    String URL = "";
+        if(session.getAttribute("user")==null){
+        
+        URL = "/ams/login.jsp";
+        response.sendRedirect(URL); 
+
+        }
+        else if(!session.getAttribute("role").equals("student")){
+
+        URL = "/ams/login.jsp";
+        response.sendRedirect(URL); 
+        }
+    
+    
     %>
 
     <div class="div-center">
