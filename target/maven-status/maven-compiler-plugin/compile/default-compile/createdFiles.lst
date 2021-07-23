@@ -1,3 +1,4 @@
-com/ams/loginAuth.class
 com/ams/fetchStudentAttendanceStudentHome.class
 com/ams/logout.class
+com/ams/facultyHomeAttendanceFetch.class
+com/ams/loginAuth.class

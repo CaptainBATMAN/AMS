@@ -34,4 +34,15 @@
   <url-pattern>/fetchStudentAttendanceStudentHome</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>facultyHomeAttendanceFetch</servlet-name>
+  <servlet-class>com.ams.facultyHomeAttendanceFetch</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>facultyHomeAttendanceFetch</servlet-name>
+  <url-pattern>/facultyHomeAttendanceFetch</url-pattern>
+</servlet-mapping>
+
 </web-app>
+

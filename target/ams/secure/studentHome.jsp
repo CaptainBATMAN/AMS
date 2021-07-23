@@ -11,17 +11,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student</title>
     <script src="../imported/jquery-3.6.0.js"></script>
-    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="../imported/moment.js"></script>
     <link rel="stylesheet" href="../custom_styles/customStyles.css">
     <script src="../custom_scripts/student_home.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
     <link rel="stylesheet" href="../imported/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-
+    <script src="../imported/bootstrap.4.4.1.min.js"></script>
+    
+    <!-- for Datepicker -->
+    <link rel="stylesheet" href="../imported/datepicker.css">
+    <script src="../imported/bootstrap-datepicker.js"></script>
+    
+    <!-- for DataTables -->
+    <link rel="stylesheet" type="text/css" href="./../DataTables/datatables.min.css"/>
+    <script type="text/javascript" src="./../DataTables/datatables.min.js"></script>
 </head>
 
 <body>
@@ -35,7 +37,6 @@
 
         }
         else if(!session.getAttribute("role").equals("student")){
-
         URL = "/ams/login.jsp";
         response.sendRedirect(URL); 
         }
@@ -47,8 +48,8 @@
         <div id="nav-div" style="margin-bottom: 0em;">
             <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark font-poppins" style="color: turquoise;">
                 <a class="navbar-brand p-0" style="margin-right: 50em;" href="./studentHome.html">AMS</a>
-                <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="checkToggle()">
-                    <span id="toggle-button" class="bi bi-caret-down"></span>
+                <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span id="toggle-button" class="navbar-toggler-icon"></span>
                 </a>
                 <div class="navbar-collapse collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -90,14 +91,26 @@
 
 
         <div style="margin-top: 4em;">
-            <div class="card border-dark d-none" id="attendanceReportsCard">
+            <div id="attendanceReportsCard" class="card border-dark d-none" >
                 <div class="card-header bg-dark p-1">
                     <h6 class="modal-title text-white font-weight-bold m-0"> Attendance Reports </h6>
                 </div>
                 <div id="noAttendanceRecords" class="card-body d-none">
-                    <h6 class="text-danger">No Attendance Records found.</h6>
+                    <h6 class="text-danger text-center font-weight-bolder">No Attendance Records found.</h6>
                 </div>
+               
                 <div id="renderAttendanceReports" class="card-body d-none">
+                    <table id="data-table" class="table table-bordered" style="width: 100%; margin: 0 auto;">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Meeting_ID</th>
+                                <th>Participant_Email</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                    
+                    </table>
                 </div>
             </div>
         </div>

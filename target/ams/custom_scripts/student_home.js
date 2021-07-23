@@ -12,51 +12,78 @@ $(document).ready(function () {
     function initDates(elementId, selectedDate) {
         var selector = '#' + elementId;
         $(selector).datepicker({
-            dateFormat: 'dd-mm-yy',
+            format: 'yyyy-mm-dd',
             autoclose: true,
             todayHighlight: true
         });
         $(selector).datepicker('setDate', selectedDate);
     }
 
-    $('#fetchButton').click(renderAttendanceData);
+    $('#fetchButton').click(function(){
+        if(!$("#attendanceReportsCard").hasClass("d-none")){
+            $("#attendanceReportsCard").addClass("d-none");
+        }
+        if(!$("#noAttendanceRecords").hasClass("d-none")){
+            $("#noAttendanceRecords").addClass("d-none");
+        }
+        if(!$("#renderAttendanceReports").hasClass("d-none")){
+            $("#renderAttendanceReports").addClass("d-none");
+        }
+        renderAttendanceData();
+    });
+
 
     function renderAttendanceData() {
         var fromDate = $('#fromDate').val();
         var toDate = $('#toDate').val();
+        var fromDateMillis = moment(fromDate, 'YYYY-MM-DD').valueOf();
+        // var toDateMillis = moment(toDateString, 'YYYY-MM-DD').valueOf();
+        // var totalNoOfDays = ((toDateMillis - fromDateMillis) / 86400000) + 1;
+        // if (totalNoOfDays > 31) {
+        //     alertify.error('Maximum range is 31 days. Please change time range and try again.', "6");
+        //     return;
+        // }
+        // var noOfDaysCount = 1;
+        // if (toDateMillis < fromDateMillis) {
+        //     alertify.error('To Date is before From Date. Please select a valid date range.', "6");
+        //     return;
+        // }
+
+        var currentDateString = moment(fromDateMillis, 'x').format('DD-MM-YYYY');
+
         $.ajax({
             url: '../fetchStudentAttendanceStudentHome',
             method: 'POST',
-            data: { Date: '24-05-2021'},
-            success: function (data) {
-                if (data === null){
+            data: { Date: currentDateString },
+            success: function (attendanceData) {
+                if (!attendanceData.length) {
                     $('#attendanceReportsCard').removeClass('d-none');
                     $('#noAttendanceRecords').removeClass('d-none');
-                    console.log("null")
                 }
-                else{
+                else {
                     $('#attendanceReportsCard').removeClass('d-none');
                     $('#renderAttendanceReports').removeClass('d-none');
-                    console.dir(data)
-                    console.log(data)
+                    console.dir(attendanceData)
+                    $('#data-table').DataTable({
+                        "retrieve": true,
+                        "lengthMenu": [[5, 10, 25, 50, 75, 100, -1], [5, 10, 25, 50, 75, 100, "All"]],
+                        "pageLength": 10,
+                        "scrollX": true,
+                        "dom": "<'row'<'col-12 col-lg-2'l><'col-12 col-lg-6 text-center'B><'col-12 col-lg-4'f>><'row'<'col-12'tr>><'row'<'col-5'i><'col-7'p>>",
+                        "data": attendanceData,
+                        "columns": [
+                            { "data": "Date" },
+                            { "data": "Meeting_ID" },
+                            { "data": "Participant_Email" },
+                            { "data": "Duration" }
+                        ]
+                    });
+
                 }
             },
             error: function (jqXHR, exception) {
-                console.log('Error occured!!');
+                console.log('Error occured while fetching data!!');
             }
         });
     }
-
-
-
 });
-
-function checkToggle() {
-    if ($('#toggle-button').hasClass('bi-caret-down')) {
-        $('#toggle-button').addClass('bi-caret-down-fill');
-        $('#toggle-button').removeClass('bi-caret-down');
-    } else {
-        $('#toggle-button').removeClass('bi-caret-down-fill');
-        $('#toggle-button').addClass('bi-caret-down');
-    }
-}

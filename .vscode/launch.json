@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch loginAuth",
+            "request": "launch",
+            "mainClass": "com.ams.loginAuth",
+            "projectName": "ams"
+        },
+        {
+            "type": "java",
+            "name": "Launch facultyHomeAttendanceFetch",
+            "request": "launch",
+            "mainClass": "com.ams.facultyHomeAttendanceFetch",
+            "projectName": "ams"
+        },
+        {
+            "type": "java",
             "name": "Launch fetchStudentAttendanceStudentHome",
             "request": "launch",
             "mainClass": "com.ams.fetchStudentAttendanceStudentHome",

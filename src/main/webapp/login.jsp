@@ -24,7 +24,9 @@
     <% String status = (String) request.getAttribute("status");
     if(status == null){
         status = "";
-    } %> 
+    }
+    %>
+
     <div class="div-center">    
 
         <!-- Just a black navigation bar -->
@@ -59,7 +61,7 @@
                     </form>
                     <!-- form ends here -->
                     <div>
-                        <h6 class="text-danger" style="text-align: center;"> <%= status%>  </h6>
+                        <h6 class="text-danger" style="text-align: center; padding-top: 0.5rem;"> <%= status%>  </h6>
                     </div>
                 </div>
             </div>

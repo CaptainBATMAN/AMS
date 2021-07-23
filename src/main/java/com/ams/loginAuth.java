@@ -33,7 +33,7 @@ import org.bson.conversions.Bson;
 public class loginAuth extends HttpServlet {
 
     // public static void main(String[] args) {
-    // String loginId = "dada@ca.o";
+    // String loginId = "test@faculty.ac.in";
     // String pwd = "dasd";
 
     // ConnectionString connectionString = new
@@ -50,7 +50,7 @@ public class loginAuth extends HttpServlet {
 
     // String FetchedEmail = null;
     // String FetchedPassword = null;
-    // String FetchedUser_role =null;
+    // String FetchedUser_role = null;
     // String redirectURL = "login.jsp";
     // MongoCursor<org.bson.Document> cursor =
     // collection.find(filter).projection(projection).cursor();
@@ -58,22 +58,26 @@ public class loginAuth extends HttpServlet {
     // while (cursor.hasNext()) {
     // org.bson.Document data = cursor.next();
     // FetchedEmail = data.getString("email");
+    // System.out.println(FetchedEmail);
     // FetchedPassword = data.getString("password");
+    // System.out.println(FetchedPassword);
+
     // FetchedUser_role = data.getString("user_role");
+    // System.out.println(FetchedUser_role);
+
     // }
     // } finally {
 
     // cursor.close();
-    // if(FetchedEmail == null &&FetchedPassword == null && FetchedUser_role==
-    // null){
-    // System.out.println("fuckoff bruh");
+    // if (FetchedEmail == null && FetchedPassword == null && FetchedUser_role ==
+    // null) {
+    // System.out.println("bruh");
     // }
     // if (loginId.equals(FetchedEmail) && pwd.equals(FetchedPassword)) {
     // if (FetchedUser_role.equals("student")) {
     // System.out.println("ikkadiki ela vacchav");
 
-    // }
-    // else if(FetchedUser_role.equals("faculty")){
+    // } else if (FetchedUser_role.equals("faculty")) {
     // System.out.println("ikkadiki ela vacchav 2");
 
     // }
@@ -112,10 +116,12 @@ public class loginAuth extends HttpServlet {
         } finally {
 
             cursor.close();
+
             if (FetchedEmail == null && FetchedPassword == null && FetchedUser_role == null) {
-                request.setAttribute("status", "Wrong Credentials, Please try again.");
+                request.setAttribute("status", "Wrong Credentials. Try again.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
+
             if (loginId.equals(FetchedEmail) && pwd.equals(FetchedPassword)) {
                 if (FetchedUser_role.equals("student")) {
 
@@ -130,6 +136,9 @@ public class loginAuth extends HttpServlet {
                     session.setAttribute("role", FetchedUser_role);
                     redirectURL = "./secure/facultyHome.jsp";
                 }
+            } else {
+                request.setAttribute("status", "Wrong Credentials. Try again.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
             response.sendRedirect(redirectURL);
         }
