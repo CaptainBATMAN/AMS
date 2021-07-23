@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>AMS Web Application</display-name>
 
 <servlet>
   <servlet-name>loginAuth</servlet-name>
@@ -23,4 +23,15 @@
   <servlet-name>logout</servlet-name>
   <url-pattern>/logout</url-pattern>
 </servlet-mapping>
+
+<servlet>
+  <servlet-name>fetchStudentAttendanceStudentHome</servlet-name>
+  <servlet-class>com.ams.fetchStudentAttendanceStudentHome</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>fetchStudentAttendanceStudentHome</servlet-name>
+  <url-pattern>/fetchStudentAttendanceStudentHome</url-pattern>
+</servlet-mapping>
+
 </web-app>

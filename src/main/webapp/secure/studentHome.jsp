@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="../imported/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
@@ -95,7 +94,10 @@
                 <div class="card-header bg-dark p-1">
                     <h6 class="modal-title text-white font-weight-bold m-0"> Attendance Reports </h6>
                 </div>
-                <div id="renderAttendanceReports" class="card-body">
+                <div id="noAttendanceRecords" class="card-body d-none">
+                    <h6 class="text-danger">No Attendance Records found.</h6>
+                </div>
+                <div id="renderAttendanceReports" class="card-body d-none">
                 </div>
             </div>
         </div>

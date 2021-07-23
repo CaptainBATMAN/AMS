@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
@@ -18,12 +18,26 @@ $(document).ready(function() {
         $(selector).datepicker('setDate', selectedDate);
     }
 
-    $('#fetchButton').click(function() {
+    $('#fetchButton').click(function () {
         $('#attendanceReportsCard').removeClass('d-none');
     });
 
 
-    
+    function renderAttendanceData() {
+        var name = $('#name').val();
+        $.ajax({
+            url: 'AjaxHandler',
+            method: 'POST',
+            data: { name: name },
+            success: function (resultText) {
+                $('#result').html(resultText);
+            },
+            error: function (jqXHR, exception) {
+                console.log('Error occured!!');
+            }
+        });
+    }
+
 });
 
 function checkToggle() {
@@ -35,3 +49,5 @@ function checkToggle() {
         $('#toggle-button').addClass('bi-caret-down');
     }
 }
+
+

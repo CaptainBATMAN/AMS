@@ -1,4 +1,3 @@
-com/ams/fetchStudentAttendanceStudentHome.class
-com/ams/mongoDBManager.class
-com/ams/logout.class
 com/ams/loginAuth.class
+com/ams/fetchStudentAttendanceStudentHome.class
+com/ams/logout.class

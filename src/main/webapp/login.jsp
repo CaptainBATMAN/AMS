@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset = UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page import="com.ams.*" %>
+<%@ page import="java.lang.*" %>
+<%@ page import="java.util.*" %>
+
+
+
 <html lang="en">
 
 <head>
@@ -12,6 +20,11 @@
 </head>
 
 <body>
+
+    <% String status = (String) request.getAttribute("status");
+    if(status == null){
+        status = "";
+    } %> 
     <div class="div-center">    
 
         <!-- Just a black navigation bar -->
@@ -38,13 +51,16 @@
                         </div>
 
                         <div class="form-group col " style="margin-top: 1.5em; ">
-                            <input id="pwd" class=" form-control " placeholder="Enter password" name="pwd" type="password">
+                            <input id="pwd" class="form-control" placeholder="Enter password" name="pwd" type="password">
                         </div>
                         <div class="form-group col-2 " style=" margin-top: 1.25em; ">
                             <button type="submit " class="btn btn-success btn-sm p-2 " style="margin-bottom: -1em !important; ">Login</button>
                         </div>
                     </form>
                     <!-- form ends here -->
+                    <div>
+                        <h6 class="text-danger" style="text-align: center;"> <%= status%>  </h6>
+                    </div>
                 </div>
             </div>
         </div>

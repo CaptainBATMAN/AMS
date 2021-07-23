@@ -59,8 +59,7 @@
                         </li>
                         <li class="nav-item">
                             <form action="../logout" method="POST">
-                                <button type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#">Log
-                                    Out</button>
+                                <button type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#">LogOut</button>
                             </form>
                         </li>
                     </ul>
@@ -75,6 +74,7 @@
                         <div class="card-header bg-dark p-1">
                             <h6 class="modal-title text-white font-weight-bold m-0">Fetch Attendance Reports </h6>
                         </div>
+                   
                         <div class="card-body ">
                             <div class="form-group col-md-6">
 
@@ -85,20 +85,30 @@
                                                 class="input-sm form-control " id="date"></p>
                                     </div>
                                     <div class="form-group col-md-6 ">
-                                        <p class="font-weight-bolder">Time: <input type="time"
-                                                class="input-sm form-control" id="timeInput"></p>
-                                    </div>
-                                    <div class="form-group col-md-6 ">
                                         <p class="font-weight-bolder">Google Meet Code :
                                             <input id="gmeetcode" class="input-sm form-control" type="text"
-                                                maxlength="9" name="gmeetcode">
+                                                maxlength="10" name="gmeetcode">
                                         </p>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <p class="font-weight-bolder">From Time: <input type="time"
+                                                class="input-sm form-control" id="fromTime"></p>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <p class="font-weight-bolder">To Time: <input type="time"
+                                                class="input-sm form-control" id="toTime"></p>
+                                    </div>
+                                   
+                                    <div class="form-group col-md-6 ">
+                                        <p class="font-weight-bolder">Subject: <input type="text"
+                                                class="input-sm form-control " id="subject"></p>
                                     </div>
                                 </div>
                             </div>
-                            <button id="fetchButton" type="submit" style="cursor: pointer; margin-left: 1.2em; margin-top: -1.5em;"
+                            <button id="fetchButton" type="submit" onclick="renderAttendanceData()" style="cursor: pointer; margin-left: 1.2em; margin-top: -1.5em;"
                                 class="btn btn-success btn-sm ">Fetch</button>
                         </div>
+                    
                     </div>
                 </div>
             </div>

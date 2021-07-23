@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
@@ -19,12 +19,36 @@ $(document).ready(function() {
         $(selector).datepicker('setDate', selectedDate);
     }
 
-    $('#fetchButton').click(function() {
-        $('#attendanceReportsCard').removeClass('d-none');
-    });
+    $('#fetchButton').click(renderAttendanceData);
+
+    function renderAttendanceData() {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        $.ajax({
+            url: '../fetchStudentAttendanceStudentHome',
+            method: 'POST',
+            data: { Date: '24-05-2021'},
+            success: function (data) {
+                if (data === null){
+                    $('#attendanceReportsCard').removeClass('d-none');
+                    $('#noAttendanceRecords').removeClass('d-none');
+                    console.log("null")
+                }
+                else{
+                    $('#attendanceReportsCard').removeClass('d-none');
+                    $('#renderAttendanceReports').removeClass('d-none');
+                    console.dir(data)
+                    console.log(data)
+                }
+            },
+            error: function (jqXHR, exception) {
+                console.log('Error occured!!');
+            }
+        });
+    }
 
 
-    
+
 });
 
 function checkToggle() {
