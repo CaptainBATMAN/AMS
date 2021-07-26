@@ -19,36 +19,57 @@ $(document).ready(function () {
     }
 
     $('#fetchButton').click(function () {
-        if(!$("#attendanceReportsCard").hasClass("d-none")){
+        
+        if ($('#fromTime').val() === "") {
+            alert('Please fill all the fields before fetching,,');
+            return;
+        }
+        if ($('#toTime').val() === "") {
+            alert('Please fill all the fields before fetching,,');
+            return;
+        }
+         
+        if($('#class').val() === ""){
+            alert('Please fill all the fields before fetching,,');
+            return;
+        }
+
+        if (!$("#attendanceReportsCard").hasClass("d-none")) {
             $("#attendanceReportsCard").addClass("d-none");
         }
-        if(!$("#noAttendanceRecords").hasClass("d-none")){
+        if (!$("#noAttendanceRecords").hasClass("d-none")) {
             $("#noAttendanceRecords").addClass("d-none");
         }
-        if(!$("#renderAttendanceReports").hasClass("d-none")){
+        if (!$("#renderAttendanceReports").hasClass("d-none")) {
             $("#renderAttendanceReports").addClass("d-none");
         }
         renderAttendanceData();
     });
 
-    
+
     function renderAttendanceData() {
         var meetingID = $("#gmeetcode").val();
-    var date = $("#date").val();
-    var dateInMillis = moment(date, 'YYYY-MM-DD').valueOf();
-    var dateString = moment(dateInMillis, 'x').format('DD-MM-YYYY');
-    console.log(dateString)
-
+        var date = $("#date").val();
+        var dateInMillis = moment(date, 'YYYY-MM-DD').valueOf();
+        var dateString = moment(dateInMillis, 'x').format('DD-MM-YYYY');
+        var fromTime = ($('#fromTime').val())+':00';
+        var toTime = ($('#toTime').val())+':00';
+        // var subject = $('#subject').val();
+        var className = $('#class').val();
+        // var period = $('input[name="period"]:checked').val();
+        
         $.ajax({
             url: '../facultyHomeAttendanceFetch',
             method: 'POST',
-            data: { Meeting_ID : meetingID , Date : dateString},
+            data: { Date: dateString , fromTime: fromTime, toTime: toTime, className: className, Meeting_ID: meetingID},
             success: function (attendanceData) {
                 if (!attendanceData.length) {
+                    console.log('Has No records...')
                     $('#attendanceReportsCard').removeClass('d-none');
                     $('#noAttendanceRecords').removeClass('d-none');
                 }
                 else {
+                    console.log('has records...')
                     $('#attendanceReportsCard').removeClass('d-none');
                     $('#renderAttendanceReports').removeClass('d-none');
                     console.dir(attendanceData)
@@ -60,10 +81,14 @@ $(document).ready(function () {
                         "dom": "<'row'<'col-12 col-lg-2'l><'col-12 col-lg-6 text-center'B><'col-12 col-lg-4'f>><'row'<'col-12'tr>><'row'<'col-5'i><'col-7'p>>",
                         "data": attendanceData,
                         "columns": [
-                            { "data": "Date" },
-                            { "data": "Meeting_ID" },
                             { "data": "Participant_Email" },
-                            { "data": "Duration" }
+                            { "data": "Meeting_ID" },
+                            { "data": "Start_Time" },
+                            { "data": "End_Time" },
+                            { "data": "Duration" },
+                            { "data": "Class" },
+                            { "data": "Subject" }
+
                         ]
                     });
 

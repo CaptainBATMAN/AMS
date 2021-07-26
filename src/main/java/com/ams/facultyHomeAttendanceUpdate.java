@@ -33,29 +33,30 @@ import org.bson.conversions.Bson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class facultyHomeAttendanceFetch extends HttpServlet {
+public class facultyHomeAttendanceUpdate extends HttpServlet {
 
-    // public static void main(String[] args) {
+    // public static void main(String[] args){
     // // * get params from request
     // String date = "11-11-2020";
     // String fromTime = "11:00:00";
     // String toTime = "12:30:00";
-    // String meetingID = "ATCBCNNUPO";
+    // String subject = "USP";
+    // String className = "CSE-06";
 
     // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
     // Date fromTimeDate = null;
     // try {
-    // fromTimeDate = simpleDateFormat.parse(fromTime);
+    //     fromTimeDate = simpleDateFormat.parse(fromTime);
     // } catch (ParseException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
+    //     // TODO Auto-generated catch block
+    //     e.printStackTrace();
     // }
     // Date toTimeDate = null;
     // try {
-    // toTimeDate = simpleDateFormat.parse(toTime);
+    //     toTimeDate = simpleDateFormat.parse(toTime);
     // } catch (ParseException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
+    //     // TODO Auto-generated catch block
+    //     e.printStackTrace();
     // }
 
     // System.out.println(fromTimeDate);
@@ -68,24 +69,14 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
     // MongoDatabase database = mongoClient.getDatabase("university");
     // MongoCollection<org.bson.Document> collection =
     // database.getCollection(collectionName);
-    // System.out.println(collectionName);
+
     // // * filtering data and fields needed.
 
-    // Bson filter;
-    // System.out.println("filter");
-    // if(meetingID.equals("")){
-    // filter = eq("Class", "CSE-05");
-    // System.out.println("into if");
-    // }
-    // else{
-    // System.out.println("into else");
-
-    // filter = and(eq("Meeting_ID", meetingID),eq("Class","CSE-05"));
-    // }
-    // System.out.println(filter);
-    // Bson projection = Projections.fields(Projections.include("Meeting_ID",
-    // "Participant_Email", "Duration",
-    // "Start_Time", "End_Time", "Class", "Subject"), Projections.excludeId());
+    // Bson filter = eq("Meeting_ID", "ATCBCNNUPO");
+    // Bson projection = Projections.fields(
+    // Projections.include("Meeting_ID", "Participant_Email", "Duration",
+    // "Start_Time", "End_Time"),
+    // Projections.excludeId());
 
     // MongoCursor<org.bson.Document> cursor =
     // collection.find(filter).projection(projection).cursor();
@@ -107,14 +98,23 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
     // && (fromStartTimeDate.getTime() >= fromTimeDate.getTime()
     // && fromStartTimeDate.getTime() <= toTimeDate.getTime())) {
 
+    // Bson emailFilter = Filters.eq("Participant_Email",
+    // data.getString("Participant_Email"));
+    // Bson startTimeFilter = Filters.eq("Start_Time",
+    // data.getString("Start_Time"));
+    // Bson classNameUpdate = Updates.set("Class", className);
+    // Bson subjectUpdate = Updates.set("Subject", subject);
+    // UpdateOptions options = new UpdateOptions().upsert(true);
+    // System.out.println(collection.updateOne(and(emailFilter, startTimeFilter),
+    // combine(classNameUpdate, subjectUpdate), options));
     // JSONObject jsonObject = new JSONObject();
     // jsonObject.put("Start_Time", data.getString("Start_Time"));
     // jsonObject.put("End_Time", data.getString("End_Time"));
     // jsonObject.put("Meeting_ID", data.getString("Meeting_ID"));
     // jsonObject.put("Participant_Email", data.getString("Participant_Email"));
     // jsonObject.put("Duration", data.getInteger("Duration"));
-    // jsonObject.put("Class", data.getString("Class"));
-    // jsonObject.put("Subject", data.getString("Subject"));
+    // jsonObject.put("Class", className);
+    // jsonObject.put("Subject", subject);
     // array.add(jsonObject);
 
     // }
@@ -124,8 +124,8 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
 
     // }
     // } catch (ParseException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
+    //     // TODO Auto-generated catch block
+    //     e.printStackTrace();
     // } finally {
 
     // System.out.println(array);
@@ -139,7 +139,7 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
     // }
     // }
 
-    public facultyHomeAttendanceFetch() {
+    public facultyHomeAttendanceUpdate() {
         super();
     }
 
@@ -155,8 +155,9 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
         String date = request.getParameter("Date");
         String fromTime = request.getParameter("fromTime");
         String toTime = request.getParameter("toTime");
+        String subject = request.getParameter("subject");
         String className = request.getParameter("className");
-        String meetingID = request.getParameter("Meeting_ID");
+        String period = request.getParameter("period");
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         Date fromTimeDate = null;
@@ -172,9 +173,10 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
         } catch (ParseException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
-        }
-        ;
-
+        };
+       
+         
+ 
         // * creating DB instance
         String collectionName = "db_" + date.replace("-", "_");
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
@@ -184,14 +186,10 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
 
         // * filtering data and fields needed.
         HttpSession session = request.getSession();
-        Bson filter;
-        if (meetingID.equals("")) {
-            filter = eq("Class", className);
-        } else {
-            filter = and(eq("Meeting_ID", meetingID), eq("Class", className));
-        }
-        Bson projection = Projections.fields(Projections.include("Meeting_ID", "Participant_Email", "Duration",
-                "Start_Time", "End_Time", "Class", "Subject"), Projections.excludeId());
+        Bson filter = eq("Meeting_ID", request.getParameter("Meeting_ID"));
+        Bson projection = Projections.fields(
+                Projections.include("Meeting_ID", "Participant_Email", "Duration", "Start_Time", "End_Time"),
+                Projections.excludeId());
 
         MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
         org.bson.Document data = null;
@@ -210,14 +208,22 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
                         && (fromStartTimeDate.getTime() >= fromTimeDate.getTime()
                                 && fromStartTimeDate.getTime() <= toTimeDate.getTime())) {
 
+                    Bson emailFilter = Filters.eq("Participant_Email", data.getString("Participant_Email"));
+                    Bson startTimeFilter = Filters.eq("Start_Time", data.getString("Start_Time"));
+                    Bson classNameUpdate = Updates.set("Class", className);
+                    Bson subjectUpdate = Updates.set("Subject", subject);
+                    Bson periodUpdate = Updates.set("Period", period);
+                    UpdateOptions options = new UpdateOptions().upsert(true);
+                    System.out.println(collection.updateOne(and(emailFilter, startTimeFilter),
+                            combine(classNameUpdate, subjectUpdate,periodUpdate), options));
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("Start_Time", data.getString("Start_Time"));
                     jsonObject.put("End_Time", data.getString("End_Time"));
                     jsonObject.put("Meeting_ID", data.getString("Meeting_ID"));
                     jsonObject.put("Participant_Email", data.getString("Participant_Email"));
                     jsonObject.put("Duration", data.getInteger("Duration"));
-                    jsonObject.put("Class", data.getString("Class"));
-                    jsonObject.put("Subject", data.getString("Subject"));
+                    jsonObject.put("Class", className);
+                    jsonObject.put("Subject", subject);
                     array.add(jsonObject);
                 }
             }
@@ -225,6 +231,7 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
+
             // * Sending JSOM array as a response
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
@@ -234,4 +241,5 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
             cursor.close();
         }
     }
+
 }

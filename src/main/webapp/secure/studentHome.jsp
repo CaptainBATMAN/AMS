@@ -46,7 +46,7 @@
 
     <div class="div-center">
         <div id="nav-div" style="margin-bottom: 0em;">
-            <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark font-poppins" style="color: turquoise;">
+            <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark font-poppins" style="position: relative;">
                 <a class="navbar-brand p-0" style="margin-right: 50em;" href="./studentHome.html">AMS</a>
                 <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span id="toggle-button" class="navbar-toggler-icon"></span>
@@ -58,7 +58,7 @@
                         </li>
                         <li class="nav-item">
                             <form action="../logout" method="POST">
-                            <button  type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#">Log Out</button>
+                            <button  type="submit" id="logOutBtn" class="btn btn-danger btn-sm" href="#" style="position: absolute; right: 10px; margin: auto 0;bottom: 10px;">Log Out</button>
                             </form>
                         </li>
                     </ul>

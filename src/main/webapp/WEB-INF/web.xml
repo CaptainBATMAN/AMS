@@ -35,6 +35,16 @@
 </servlet-mapping>
 
 <servlet>
+  <servlet-name>facultyHomeAttendanceUpdate</servlet-name>
+  <servlet-class>com.ams.facultyHomeAttendanceUpdate</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>facultyHomeAttendanceUpdate</servlet-name>
+  <url-pattern>/facultyHomeAttendanceUpdate</url-pattern>
+</servlet-mapping>
+
+<servlet>
   <servlet-name>facultyHomeAttendanceFetch</servlet-name>
   <servlet-class>com.ams.facultyHomeAttendanceFetch</servlet-class>
 </servlet>
@@ -43,6 +53,7 @@
   <servlet-name>facultyHomeAttendanceFetch</servlet-name>
   <url-pattern>/facultyHomeAttendanceFetch</url-pattern>
 </servlet-mapping>
+
 
 </web-app>
 

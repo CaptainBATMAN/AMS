@@ -134,7 +134,7 @@ public class loginAuth extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", loginId);
                     session.setAttribute("role", FetchedUser_role);
-                    redirectURL = "./secure/facultyHome.jsp";
+                    redirectURL = "./secure/facultyHomeFetch.jsp";
                 }
             } else {
                 request.setAttribute("status", "Wrong Credentials. Try again.");
