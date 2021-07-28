@@ -99,14 +99,15 @@
                     <h6 class="text-danger text-center font-weight-bolder">No Attendance Records found.</h6>
                 </div>
                
+
                 <div id="renderAttendanceReports" class="card-body d-none">
-                    <table id="data-table" class="table table-bordered" style="width: 100%; margin: 0 auto;">
+                    <table id="data-table" class="table table-bordered text-center" style="width: 100%; margin: 0 auto;">
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Meeting_ID</th>
-                                <th>Participant_Email</th>
-                                <th>Duration</th>
+                                <th>Period 1</th>
+                                <th>Period 2</th>
+                                <th>Period 3</th>
                             </tr>
                         </thead>
                     

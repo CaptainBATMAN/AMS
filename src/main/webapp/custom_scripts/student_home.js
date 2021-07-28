@@ -19,14 +19,14 @@ $(document).ready(function () {
         $(selector).datepicker('setDate', selectedDate);
     }
 
-    $('#fetchButton').click(function(){
-        if(!$("#attendanceReportsCard").hasClass("d-none")){
+    $('#fetchButton').click(function () {
+        if (!$("#attendanceReportsCard").hasClass("d-none")) {
             $("#attendanceReportsCard").addClass("d-none");
         }
-        if(!$("#noAttendanceRecords").hasClass("d-none")){
+        if (!$("#noAttendanceRecords").hasClass("d-none")) {
             $("#noAttendanceRecords").addClass("d-none");
         }
-        if(!$("#renderAttendanceReports").hasClass("d-none")){
+        if (!$("#renderAttendanceReports").hasClass("d-none")) {
             $("#renderAttendanceReports").addClass("d-none");
         }
         renderAttendanceData();
@@ -63,19 +63,39 @@ $(document).ready(function () {
                 else {
                     $('#attendanceReportsCard').removeClass('d-none');
                     $('#renderAttendanceReports').removeClass('d-none');
-                    console.dir(attendanceData)
+                    console.dir(attendanceData);
+
+                    var date = attendanceData[0].date;
+                    var P1 = attendanceData[0].P1.Class_Timings + "\n" + attendanceData[0].P1.Meeting_ID + "\n" + attendanceData[0].P1.Duration;
+                    var P2 = attendanceData[0].P2.Class_Timings + "\n" + attendanceData[0].P2.Meeting_ID + "\n" + attendanceData[0].P2.Duration;
+                    var P3 = attendanceData[0].P3.Class_Timings + "\n" + attendanceData[0].P3.Meeting_ID + "\n" + attendanceData[0].P3.Duration;
+                   
+                    console.log(P1)
+                    console.log(P2)
+                    console.log(P3)
+                   
+                   
+                    var mainAttendanceData = [
+                        {
+                            "date": date,
+                            "P1": P1,
+                            "P2": P2,
+                            "P3": P3
+                        }
+                ];
+                    console.log(mainAttendanceData);
                     $('#data-table').DataTable({
                         "retrieve": true,
                         "lengthMenu": [[5, 10, 25, 50, 75, 100, -1], [5, 10, 25, 50, 75, 100, "All"]],
                         "pageLength": 10,
                         "scrollX": true,
                         "dom": "<'row'<'col-12 col-lg-2'l><'col-12 col-lg-6 text-center'B><'col-12 col-lg-4'f>><'row'<'col-12'tr>><'row'<'col-5'i><'col-7'p>>",
-                        "data": attendanceData,
+                        "data": mainAttendanceData,
                         "columns": [
-                            { "data": "Date" },
-                            { "data": "Meeting_ID" },
-                            { "data": "Participant_Email" },
-                            { "data": "Duration" }
+                            { "data": "date" },
+                            { "data": "P1" },
+                            { "data": "P2" },
+                            { "data": "P3" }
                         ]
                     });
 

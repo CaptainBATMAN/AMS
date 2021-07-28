@@ -193,34 +193,9 @@
                     </div>
 
                     <div style="margin-top: 4em">
-                        <div id="attendanceReportsCard" class="card border-dark d-none">
-                            <div class="card-header bg-dark p-1">
-                                <h6 class="modal-title text-white font-weight-bold m-0">
-                                   Update Attendance Reports
-                                </h6>
-                            </div>
-                            <div id="noAttendanceRecords" class="card-body d-none">
-                                <h6 class="text-danger text-center font-weight-bolder">
-                                    No Attendance Records found.
-                                </h6>
-                            </div>
-
-                            <div id="renderAttendanceReports" class="card-body d-none">
-                                <table id="data-table" class="table table-bordered" style="width: 100%; margin: 0 auto">
-                                    <thead>
-                                        <tr>
-                                            <th>Participant_Email</th>
-                                            <th>Meeting_ID</th>
-                                            <th>Start_Time</th>
-                                            <th>End_Time</th>
-                                            <th>Duration</th>
-                                            <th>Class</th>
-                                            <th>Subject</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
+                       <div class="d-none" id="updateReportCard">
+                           <h3 id="updateReport"></h3>
+                       </div>
                     </div>
                 </div>
         </body>

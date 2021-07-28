@@ -28,6 +28,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.bson.json.JsonMode;
 
+import static com.mongodb.client.model.Filters.*;
+
+
 public class fetchStudentAttendanceStudentHome extends HttpServlet {
 
     // public static void main(String[] args) {
@@ -84,8 +87,8 @@ public class fetchStudentAttendanceStudentHome extends HttpServlet {
         MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
         HttpSession session = request.getSession();
-        Bson filter = eq("Participant_Email", session.getAttribute("user"));
-        Bson projection = Projections.fields(Projections.include("Date","Meeting_ID", "Participant_Email", "Duration"),
+        Bson filter = and(eq("Participant_Email", session.getAttribute("user")), eq("PeriodWiseModified",true));
+        Bson projection = Projections.fields(Projections.include("P1","P2", "P3", "Meeting_ID"),
                 Projections.excludeId());
 
         MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
@@ -95,10 +98,11 @@ public class fetchStudentAttendanceStudentHome extends HttpServlet {
             while (cursor.hasNext()) {
                 data = cursor.next();
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("Date", data.getString("Date"));
+                jsonObject.put("date", date);
                 jsonObject.put("Meeting_ID", data.getString("Meeting_ID"));
-                jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-                jsonObject.put("Duration", data.getInteger("Duration"));
+                jsonObject.put("P1", data.get("P1"));
+                jsonObject.put("P2", data.get("P2"));
+                jsonObject.put("P3", data.get("P3"));
                 array.add(jsonObject);
             }
         } finally {

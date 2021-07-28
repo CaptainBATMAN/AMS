@@ -19,7 +19,7 @@ $(document).ready(function () {
     }
 
     $('#fetchButton').click(function () {
-        
+
         if ($('#fromTime').val() === "") {
             alert('Please fill all the fields before fetching,,');
             return;
@@ -28,8 +28,12 @@ $(document).ready(function () {
             alert('Please fill all the fields before fetching,,');
             return;
         }
-         
-        if($('#class').val() === ""){
+
+        if ($('#class').val() === "") {
+            alert('Please fill all the fields before fetching,,');
+            return;
+        }
+        if ($('#subject').val() === "") {
             alert('Please fill all the fields before fetching,,');
             return;
         }
@@ -52,17 +56,18 @@ $(document).ready(function () {
         var date = $("#date").val();
         var dateInMillis = moment(date, 'YYYY-MM-DD').valueOf();
         var dateString = moment(dateInMillis, 'x').format('DD-MM-YYYY');
-        var fromTime = ($('#fromTime').val())+':00';
-        var toTime = ($('#toTime').val())+':00';
-        // var subject = $('#subject').val();
+        // var fromTime = ($('#fromTime').val())+':00';
+        // var toTime = ($('#toTime').val())+':00';
+        var subject = $('#subject').val();
         var className = $('#class').val();
         // var period = $('input[name="period"]:checked').val();
-        
+
         $.ajax({
             url: '../facultyHomeAttendanceFetch',
             method: 'POST',
-            data: { Date: dateString , fromTime: fromTime, toTime: toTime, className: className, Meeting_ID: meetingID},
+            data: { Date: dateString, subject: subject, className: className, Meeting_ID: meetingID },
             success: function (attendanceData) {
+                console.dir(attendanceData)
                 if (!attendanceData.length) {
                     console.log('Has No records...')
                     $('#attendanceReportsCard').removeClass('d-none');
@@ -73,7 +78,7 @@ $(document).ready(function () {
                     $('#attendanceReportsCard').removeClass('d-none');
                     $('#renderAttendanceReports').removeClass('d-none');
                     console.dir(attendanceData)
-                    $('#data-table').DataTable({
+                    var t = $('#data-table').DataTable({
                         "retrieve": true,
                         "lengthMenu": [[5, 10, 25, 50, 75, 100, -1], [5, 10, 25, 50, 75, 100, "All"]],
                         "pageLength": 10,
@@ -81,17 +86,25 @@ $(document).ready(function () {
                         "dom": "<'row'<'col-12 col-lg-2'l><'col-12 col-lg-6 text-center'B><'col-12 col-lg-4'f>><'row'<'col-12'tr>><'row'<'col-5'i><'col-7'p>>",
                         "data": attendanceData,
                         "columns": [
+                            { "data": null },
                             { "data": "Participant_Email" },
                             { "data": "Meeting_ID" },
-                            { "data": "Start_Time" },
-                            { "data": "End_Time" },
-                            { "data": "Duration" },
                             { "data": "Class" },
-                            { "data": "Subject" }
-
-                        ]
+                            { "data": "Subject" },
+                            { "data": "Duration" }
+                        ],
+                        "columnDefs": [{
+                            "searchable": false,
+                            "orderable": false,
+                            "targets": 0
+                        }],
+                        "order": [[1, 'asc']]
                     });
-
+                    t.on('order.dt search.dt', function () {
+                        t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                            cell.innerHTML = i + 1;
+                        });
+                    }).draw();
                 }
             },
             error: function (jqXHR, exception) {
@@ -100,6 +113,8 @@ $(document).ready(function () {
         });
     }
 
+
+    
 });
 
 

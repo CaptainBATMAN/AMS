@@ -120,27 +120,27 @@
                                                     </p>
                                                 </div>
                                                 <!-- ! from time -->
-                                                <div class="form-group col-md-6">
+                                                <!-- <div class="form-group col-md-6">
                                                     <p class="font-weight-bolder">
                                                         From Time:
                                                         <input type="time" class="input-sm form-control"
                                                             id="fromTime" />
                                                     </p>
-                                                </div>
+                                                </div> -->
                                                 <!-- ! to time -->
-                                                <div class="form-group col-md-6">
+                                                <!-- <div class="form-group col-md-6">
                                                     <p class="font-weight-bolder">
                                                         To Time:
                                                         <input type="time" class="input-sm form-control" id="toTime" />
                                                     </p>
-                                                </div>
+                                                </div> -->
                                                 <!-- !subject -->
-                                                <!-- <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6">
                                                     <p class="font-weight-bolder">
                                                         Subject:
                                                         <input type="text" class="input-sm form-control" id="subject" />
                                                     </p>
-                                                </div> -->
+                                                </div>
                                                 <!-- ! class -->
                                                 <div class="form-group col-md-6">
                                                     <p class="font-weight-bolder">
@@ -207,13 +207,12 @@
                                 <table id="data-table" class="table table-bordered" style="width: 100%; margin: 0 auto">
                                     <thead>
                                         <tr>
+                                            <th>Index</th>
                                             <th>Participant_Email</th>
                                             <th>Meeting_ID</th>
-                                            <th>Start_Time</th>
-                                            <th>End_Time</th>
-                                            <th>Duration</th>
                                             <th>Class</th>
                                             <th>Subject</th>
+                                            <th>Duration</th>
                                         </tr>
                                     </thead>
                                 </table>

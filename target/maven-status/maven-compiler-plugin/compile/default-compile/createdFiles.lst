@@ -1,4 +1,5 @@
 com/ams/fetchStudentAttendanceStudentHome.class
+com/ams/playGround.class
 com/ams/logout.class
 com/ams/facultyHomeAttendanceFetch.class
 com/ams/loginAuth.class
