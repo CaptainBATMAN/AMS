@@ -1,12 +1,5 @@
 
-
-
-// ! This file doesn't belong to the project. this file is for testing purposes only..
-
-
-
-
-
+// ! This file doesn't belong to the project. this file is for testing ..
 
 package com.ams;
 
@@ -48,6 +41,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class playGround {
+
+    // ! Faculty Update
+
     // public static void main(String[] args) {
 
     // // ! params that are usually taken from request
@@ -233,82 +229,87 @@ public class playGround {
     // }
     // }
 
-    public static void main(String[] args) {
 
-        // * get params from request
-        String date = "11-11-2020";
-        String subject = "USP";
-        String className = "CSE-05";
-        String meetingID = "";
+    // ! Student Fetch
+    // public static void main(String[] args) {
+
+    //     // * get params from request
+    //     String date = "11-11-2020";
+    //     String subject = "USP";
+    //     String className = "CSE-05";
+    //     String meetingID = "";
+
+    //     // * creating DB instance
+    //     String collectionName = "db_" + date.replace("-", "_");
+    //     ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
+    //     MongoClient mongoClient = MongoClients.create(connectionString);
+    //     MongoDatabase database = mongoClient.getDatabase("university");
+    //     MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
+
+    //     // * filtering data and fields needed.
+    //     Bson newFilter;
+    //     newFilter = and(eq("PeriodWiseModified", true));
+    //     Bson projection = Projections.fields(Projections.include("Participant_Email", "Meeting_ID", "P1", "P2", "P3"),
+    //             Projections.excludeId());
+
+    //     long count = collection.countDocuments(newFilter);
+    //     System.out.println(count);
+    //     MongoCursor<org.bson.Document> cursor = collection.find(newFilter).projection(projection).cursor();
+    //     org.bson.Document data = null;
+    //     JSONArray array = new JSONArray();
+
+    //     try {
+
+    //         // * traversing through all the documents
+    //         while (cursor.hasNext()) {
+    //             data = cursor.next();
+    //             JSONObject jsonObject = new JSONObject();
+
+    //             Bson p1Filter = and(eq("P1.Subject", subject), eq("P1.Class", className));
+    //             Bson p2Filter = and(eq("P2.Subject", subject), eq("P2.Class", className));
+    //             Bson p3Filter = and(eq("P3.Subject", subject), eq("P3.Class", className));
+
+    //             long p1Count, p2Count, p3Count;
+    //             p1Count = collection.countDocuments(p1Filter);
+    //             p2Count = collection.countDocuments(p2Filter);
+    //             p3Count = collection.countDocuments(p3Filter);
+    //             System.out.println(p1Count);
+    //             System.out.println(p2Count);
+    //             System.out.println(p3Count);
+
+    //             if (p1Count > 0) {
+    //                 jsonObject.put("Participant_Email", data.getString("Participant_Email"));
+    //                 jsonObject.put("Meeting_ID", data.get("P1", Document.class).getString("Meeting_ID"));
+    //                 jsonObject.put("Class", data.get("P1", Document.class).getString("Class"));
+    //                 jsonObject.put("Subject", data.get("P1", Document.class).getString("Subject"));
+    //                 jsonObject.put("Duration", data.get("P1", Document.class).getInteger("Duration"));
+    //                 array.add(jsonObject);
+    //             }
+    //             if (p2Count > 0) {
+    //                 jsonObject.put("Participant_Email", data.getString("Participant_Email"));
+    //                 jsonObject.put("Meeting_ID", data.get("P2", Document.class).getString("Meeting_ID"));
+    //                 jsonObject.put("Class", data.get("P2", Document.class).getString("Class"));
+    //                 jsonObject.put("Subject", data.get("P2", Document.class).getString("Subject"));
+    //                 jsonObject.put("Duration", data.get("P2", Document.class).getInteger("Duration"));
+    //                 array.add(jsonObject);
+    //             }
+    //             if (p3Count > 0) {
+    //                 jsonObject.put("Participant_Email", data.getString("Participant_Email"));
+    //                 jsonObject.put("Meeting_ID", data.get("P3", Document.class).getString("Meeting_ID"));
+    //                 jsonObject.put("Class", data.get("P3", Document.class).getString("Class"));
+    //                 jsonObject.put("Subject", data.get("P3", Document.class).getString("Subject"));
+    //                 jsonObject.put("Duration", data.get("P3", Document.class).getInteger("Duration"));
+    //                 array.add(jsonObject);
+    //             }
+    //         }
+    //     } finally {
+    //         // * Sending JSOM array as a response
+    //         System.out.println(array);
+    //         cursor.close();
+    //     }
+    // }
 
 
-        // * creating DB instance
-        String collectionName = "db_" + date.replace("-", "_");
-        ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
-        MongoClient mongoClient = MongoClients.create(connectionString);
-        MongoDatabase database = mongoClient.getDatabase("university");
-        MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
-        // * filtering data and fields needed.
-        Bson newFilter;
-        newFilter = and(eq("PeriodWiseModified", true));
-        Bson projection = Projections.fields(Projections.include("Participant_Email", "Meeting_ID", "P1", "P2", "P3"),
-                Projections.excludeId());
-
-        long count = collection.countDocuments(newFilter);
-        System.out.println(count);
-        MongoCursor<org.bson.Document> cursor = collection.find(newFilter).projection(projection).cursor();
-        org.bson.Document data = null;  
-        JSONArray array = new JSONArray();
-
-        try {
-
-            // * traversing through all the documents
-            while (cursor.hasNext()) {
-                data = cursor.next();
-                JSONObject jsonObject = new JSONObject();
-
-                Bson p1Filter = and(eq("P1.Subject",subject),eq("P1.Class",className));
-                Bson p2Filter = and(eq("P2.Subject",subject),eq("P2.Class",className));
-                Bson p3Filter = and(eq("P3.Subject",subject),eq("P3.Class",className));
-
-                long p1Count,p2Count,p3Count ;
-                p1Count = collection.countDocuments(p1Filter);
-                p2Count = collection.countDocuments(p2Filter);
-                p3Count = collection.countDocuments(p3Filter);
-                System.out.println(p1Count);
-                System.out.println(p2Count);
-                System.out.println(p3Count);
-
-                if (p1Count > 0) {
-                    jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-                    jsonObject.put("Meeting_ID", data.get("P1",Document.class).getString("Meeting_ID"));
-                    jsonObject.put("Class", data.get("P1",Document.class).getString("Class"));
-                    jsonObject.put("Subject", data.get("P1",Document.class).getString("Subject"));
-                    jsonObject.put("Duration", data.get("P1",Document.class).getInteger("Duration"));
-                    array.add(jsonObject);
-                }
-                if (p2Count > 0) {
-                    jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-                    jsonObject.put("Meeting_ID", data.get("P2",Document.class).getString("Meeting_ID"));
-                    jsonObject.put("Class", data.get("P2",Document.class).getString("Class"));
-                    jsonObject.put("Subject", data.get("P2",Document.class).getString("Subject"));
-                    jsonObject.put("Duration", data.get("P2",Document.class).getInteger("Duration"));
-                    array.add(jsonObject);
-                }
-                if (p3Count > 0) {
-                    jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-                    jsonObject.put("Meeting_ID", data.get("P3",Document.class).getString("Meeting_ID"));
-                    jsonObject.put("Class", data.get("P3",Document.class).getString("Class"));
-                    jsonObject.put("Subject", data.get("P3",Document.class).getString("Subject"));
-                    jsonObject.put("Duration", data.get("P3",Document.class).getInteger("Duration"));
-                    array.add(jsonObject);
-                }
-            }
-        } finally {
-            // * Sending JSOM array as a response
-            System.out.println(array);
-            cursor.close();
-        }
-    }
+    
 }

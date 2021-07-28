@@ -52,7 +52,7 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // * get params from request
+        // ! get params from request
         String date = request.getParameter("Date");
         String fromTimeShort = request.getParameter("fromTime");
         String toTimeShort = request.getParameter("toTime");
