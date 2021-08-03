@@ -20,30 +20,22 @@ $(document).ready(function () {
 
     $('#fetchButton').click(function () {
         if ($('#gmeetcode').val() === "") {
-            alert('Please fill all the fields before fetching,,');
+            alert('Please fill all the fields before updating..');
             return;
         }
         if ($('#fromTime').val() === "") {
-            alert('Please fill all the fields before fetching,,');
+            alert('Please fill all the fields before updating..');
             return;
         }
         if ($('#toTime').val() === "") {
-            alert('Please fill all the fields before fetching,,');
-            return;
-        }
-        if ($('#subject').val() === "") {
-            alert('Please fill all the fields before fetching,,');
-            return;
-        }
-        if ($('#class').val() === "") {
-            alert('Please fill all the fields before fetching,,');
+            alert('Please fill all the fields before updating..');
             return;
         }
 
         if (!$("#updateReportCard").hasClass("d-none")) {
             $("#updateReportCard").addClass("d-none");
         }
-
+        
         renderAttendanceData();
     });
 

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset = UTF-8" pageEncoding="UTF-8" %>
-    <%@ page import="com.ams.*" %>
+<%@ page import="com.ams.*,java.util.*" %>
 
         <!DOCTYPE html>
         <html lang="en">
@@ -30,10 +30,21 @@
         </head>
 
         <body>
-            <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); String URL="" ;
-                if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } else
-                if(!session.getAttribute("role").equals("faculty")){ URL="/ams/login.jsp" ; response.sendRedirect(URL);
-                } %>
+            <% 
+            response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+                String URL="" ;
+                if(session.getAttribute("user")==null){ 
+                    URL="/ams/login.jsp" ; 
+                    response.sendRedirect(URL); 
+                } else if(!session.getAttribute("role").equals("faculty")){ 
+                    URL="/ams/login.jsp" ; 
+                    response.sendRedirect(URL);
+                }else{
+                    ArrayList<String> subjects = new ArrayList<String>();
+                    ArrayList<String> classes = new ArrayList<String>();
+                    subjects = (ArrayList<String>) session.getAttribute("subject");
+                    classes = (ArrayList<String>) session.getAttribute("class");
+            %>
 
                 <div class="div-center">
                     <div id="nav-div" style="margin-bottom: 0em">
@@ -118,7 +129,7 @@
                                                     <p class="font-weight-bolder">
                                                         Google Meet Code :
                                                         <input id="gmeetcode" class="input-sm form-control" type="text"
-                                                            maxlength="10" name="gmeetcode" />
+                                                            maxlength="10" name="gmeetcode" style="text-transform:uppercase"/>
                                                     </p>
                                                 </div>
                                                 <!-- ! from time -->
@@ -138,17 +149,34 @@
                                                 </div>
                                                 <!-- !subject -->
                                                 <div class="form-group col-md-6">
-                                                    <p class="font-weight-bolder">
-                                                        Subject:
-                                                        <input type="text" class="input-sm form-control" id="subject" />
-                                                    </p>
+                                                    <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <label class="input-group-text text-dark"
+                                                                        for="subject">Subject :</label>
+                                                                </div>
+                                                                <select name = "subject" class="custom-select" id="subject">
+                                                                    
+                                                                    <% for(int i=0; i < subjects.size();i++) {%>
+                                                                        <option value="<%= subjects.get(i)%>"> <%= subjects.get(i)%></option>
+                                                                    <% } %>
+                                                                </select>
+                                                            </div>
                                                 </div>
                                                 <!-- ! class -->
                                                 <div class="form-group col-md-6">
-                                                    <p class="font-weight-bolder">
-                                                        Class:
-                                                        <input type="text" class="input-sm form-control" id="class" />
-                                                    </p>
+                                                    <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <label class="input-group-text text-dark"
+                                                                        for="class">Class:</label>
+                                                                </div>
+                                                                <select name = "class" class="custom-select" id="class">
+                            
+                                                                    <% for(int i=0; i < classes.size();i++) {%>
+                                                                        <option value="<%= classes.get(i)%>"> <%= classes.get(i)%></option>
+                                                                    <% } %>
+                                                                    <% } %>
+                                                                </select>
+                                                            </div>
                                                 </div>
                                                 <!-- ! Period number Radio buttons -->
                                                 <div class="form-group" style="margin-left: 0">

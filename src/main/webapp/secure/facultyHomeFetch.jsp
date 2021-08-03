@@ -30,7 +30,8 @@
             </head>
 
             <body>
-                <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
+                <% 
+                response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
                 String URL="" ;
                 if(session.getAttribute("user")==null){ 
                     URL="/ams/login.jsp" ; 
@@ -38,11 +39,12 @@
                 } else if(!session.getAttribute("role").equals("faculty")){ 
                     URL="/ams/login.jsp" ; 
                     response.sendRedirect(URL);
-                }
-                ArrayList<String> subjects = new ArrayList<String>();
-                ArrayList<String> classes = new ArrayList<String>();
-                subjects = (ArrayList<String>) session.getAttribute("subject");
-                classes = (ArrayList<String>) session.getAttribute("class");
+                }else{
+                    ArrayList<String> subjects = new ArrayList<String>();
+                    ArrayList<String> classes = new ArrayList<String>();
+                    subjects = (ArrayList<String>) session.getAttribute("subject");
+                    classes = (ArrayList<String>) session.getAttribute("class");
+                
                 %>
 
                         <div class="div-center">
@@ -117,20 +119,21 @@
                                             <div class="card-body" style="width: 100%; margin: 0 auto">
                                                 <div class="form-group">
                                                     <div class="form-row">
+
+                                                        <!-- ! FromDate -->
                                                         <div class="form-group col-md-6">
                                                             <p class="font-weight-bolder">
-                                                                Date:
+                                                               From Date:
                                                                 <input type="text" class="input-sm form-control"
-                                                                    id="date" />
+                                                                    id="fromDate" />
                                                             </p>
                                                         </div>
-                                                        <!-- ! Google meet code -->
+                                                        <!-- ! toDate -->
                                                         <div class="form-group col-md-6">
                                                             <p class="font-weight-bolder">
-                                                                Google Meet Code :
-                                                                <input id="gmeetcode" class="input-sm form-control"
-                                                                    placeholder="(Optional)" type="text" maxlength="10"
-                                                                    name="gmeetcode" />
+                                                               To Date:
+                                                                <input type="text" class="input-sm form-control"
+                                                                    id="toDate" />
                                                             </p>
                                                         </div>
                                                         <!-- ! from time -->
@@ -141,6 +144,7 @@
                                                             id="fromTime" />
                                                     </p>
                                                 </div> -->
+                                                
                                                         <!-- ! to time -->
                                                         <!-- <div class="form-group col-md-6">
                                                     <p class="font-weight-bolder">
@@ -149,7 +153,7 @@
                                                     </p>
                                                 </div> -->
                                                         <!-- !subject -->
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-6" style="margin-top: 10px;">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <label class="input-group-text text-dark"
@@ -164,7 +168,7 @@
                                                             </div>
                                                         </div>
                                                         <!-- ! class -->
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-6" style="margin-top: 10px;">
 
 
                                                             <div class="input-group">
@@ -176,6 +180,7 @@
                             
                                                                     <% for(int i=0; i < classes.size();i++) {%>
                                                                         <option value="<%= classes.get(i)%>"> <%= classes.get(i)%></option>
+                                                                    <% } %>
                                                                     <% } %>
                                                                 </select>
                                                             </div>
@@ -217,7 +222,7 @@
                     margin-left: 1.2em;
                     margin-top: -1.5em;
                   " class="btn btn-success btn-sm">
-                                                    Fetch
+                                                    View
                                                 </button>
                                             </div>
                                         </div>

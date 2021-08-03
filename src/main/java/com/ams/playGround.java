@@ -44,190 +44,180 @@ public class playGround {
 
     // ! Faculty Update
 
-    // public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    // // ! params that are usually taken from request
-    // String date = "11-11-2020";
-    // String fromTimeShort = "12:00";
-    // String toTimeShort = "13:30";
+        // ! params that are usually taken from request
+        String date = "11-11-2020";
+        String fromTimeShort = "12:00";
+        String toTimeShort = "13:30";
 
-    // String fromTime = fromTimeShort+":00";
-    // String toTime = toTimeShort+":00";
+        // ! Just converting TimeShort to Time string
+        String fromTime = fromTimeShort + ":00";
+        String toTime = toTimeShort + ":00";
 
-    // String subject = "USP";
-    // String className = "CSE-06";
-    // String period = "P2";
+        String subject = "USP";
+        String className = "CSE-06";
+        String period = "P2";
 
-    // // ! converting Time strings to SimpleDateFormat Objects
-    // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-    // Date classStartTime = null;
-    // try {
-    // classStartTime = simpleDateFormat.parse(fromTime);
-    // } catch (ParseException e) {
-    // e.printStackTrace();
-    // }
-    // Date classEndTime = null;
-    // try {
-    // classEndTime = simpleDateFormat.parse(toTime);
-    // } catch (ParseException e) {
-    // e.printStackTrace();
-    // }
+        // ! converting Time strings to SimpleDateFormat Objects
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date classStartTime = null;
+        try {
+            classStartTime = simpleDateFormat.parse(fromTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date classEndTime = null;
+        try {
+            classEndTime = simpleDateFormat.parse(toTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-    // // ! to find total duration of class
-    // int totalDurationOfClass = (int) ((classEndTime.getTime() -
-    // classStartTime.getTime()) / 1000);
+        // ! to find total duration of class
+        int totalDurationOfClass = (int) ((classEndTime.getTime() - classStartTime.getTime()) / 1000);
 
-    // // ! to connect to the database and get required collection.
-    // String collectionName = "db_" + date.replace("-", "_");
-    // ConnectionString connectionString = new
-    // ConnectionString("mongodb://127.0.0.1:27017");
-    // MongoClient mongoClient = MongoClients.create(connectionString);
-    // MongoDatabase database = mongoClient.getDatabase("university");
-    // MongoCollection<org.bson.Document> collection =
-    // database.getCollection(collectionName);
+        // ! to connect to the database and get required collection.
+        String collectionName = "db_" + date.replace("-", "_");
+        ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase database = mongoClient.getDatabase("university");
+        MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
-    // // ! to filter and get required data
 
-    // Bson filter = eq("Meeting_ID", "ATCBCNNUPO");
-    // Bson projection = Projections.fields(
-    // Projections.include("Meeting_ID", "Participant_Email", "Duration",
-    // "Start_Time", "End_Time"),
-    // Projections.excludeId());
+    //     boolean collectionExists = mongoClient.getDatabase("dbName").listCollectionNames()
+    // .into(new ArrayList<String>()).contains("collectionName");
 
-    // MongoCursor<org.bson.Document> cursor =
-    // collection.find(filter).projection(projection).cursor();
-    // org.bson.Document data = null;
 
-    // long count = collection.countDocuments(filter);
-    // System.out.println(count);
-    // String[] studentEmailArray = new String[(int) count];
-    // int totalDurationOfStudent = 0;
-    // int durationOfStudent = 0;
-    // int emailArrayIndex = 0;
+        // ! to filter and get required data
 
-    // try {
+        Bson filter = eq("Meeting_ID", "ATCBCNNUPO");
+        Bson projection = Projections.fields(
+                Projections.include("Meeting_ID", "Participant_Email", "Duration", "Start_Time", "End_Time"),
+                Projections.excludeId());
 
-    // while (cursor.hasNext()) {
-    // data = cursor.next();
-    // String Participant_Email = data.getString("Participant_Email");
-    // studentEmailArray[emailArrayIndex] = Participant_Email;
-    // emailArrayIndex = emailArrayIndex + 1;
-    // }
+        MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
+        org.bson.Document data = null;
 
-    // } finally {
+        long count = collection.countDocuments(filter);
+        System.out.println(count);
+        String[] studentEmailArray = new String[(int) count];
+        int totalDurationOfStudent = 0;
+        int durationOfStudent = 0;
+        int emailArrayIndex = 0;
 
-    // // ! to remove duplicate emails from the emails array.
-    // LinkedHashSet<String> lhSetColors = new
-    // LinkedHashSet<String>(Arrays.asList(studentEmailArray));
-    // String[] newStudentEmailArray = lhSetColors.toArray(new
-    // String[lhSetColors.size()]);
+        try {
 
-    // // ! for each email we traverse through them...
-    // for (String email : newStudentEmailArray) {
+            while (cursor.hasNext()) {
+                data = cursor.next();
+                String Participant_Email = data.getString("Participant_Email");
+                studentEmailArray[emailArrayIndex] = Participant_Email;
+                emailArrayIndex = emailArrayIndex + 1;
+            }
 
-    // // ! filter to get all the entries for the given meeting Id and email
-    // Bson studentFilter = and(eq("Meeting_ID", "ATCBCNNUPO"),
-    // eq("Participant_Email", email),
-    // eq("PeriodWiseModified", null));
-    // Bson studentProjection = Projections.fields(
-    // Projections.include("Meeting_ID", "Participant_Email", "Duration",
-    // "Start_Time", "End_Time"),
-    // Projections.excludeId());
+        } finally {
 
-    // MongoCursor<org.bson.Document> studentCursor = collection.find(studentFilter)
-    // .projection(studentProjection).cursor();
+            // ! to remove duplicate emails from the emails array.
+            LinkedHashSet<String> lhSetColors = new LinkedHashSet<String>(Arrays.asList(studentEmailArray));
+            String[] newStudentEmailArray = lhSetColors.toArray(new String[lhSetColors.size()]);
 
-    // try {
-    // totalDurationOfStudent = 0;
+            // ! for each email we traverse through them...
+            for (String email : newStudentEmailArray) {
 
-    // while (studentCursor.hasNext()) {
+                // ! filter to get all the entries for the given meeting Id and email
+                Bson studentFilter = and(eq("Meeting_ID", "ATCBCNNUPO"), eq("Participant_Email", email),
+                        eq("PeriodWiseModified", null));
+                Bson studentProjection = Projections.fields(
+                        Projections.include("Meeting_ID", "Participant_Email", "Duration", "Start_Time", "End_Time"),
+                        Projections.excludeId());
 
-    // org.bson.Document studentData = studentCursor.next();
+                MongoCursor<org.bson.Document> studentCursor = collection.find(studentFilter)
+                        .projection(studentProjection).cursor();
 
-    // Date studentStartTime =
-    // simpleDateFormat.parse(studentData.getString("Start_Time"));
-    // Date studentEndTime =
-    // simpleDateFormat.parse(studentData.getString("End_Time"));
+                try {
+                    totalDurationOfStudent = 0;
 
-    // // ! Case-1 if student was already logged in before the class started..
-    // if ((studentStartTime.getTime() <= classStartTime.getTime())
-    // && ((studentEndTime.getTime() >= classStartTime.getTime()
-    // && studentEndTime.getTime() <= classEndTime.getTime()))) {
-    // durationOfStudent = (int) ((studentEndTime.getTime() -
-    // classStartTime.getTime()) / 1000);
-    // totalDurationOfStudent = totalDurationOfStudent + durationOfStudent;
-    // }
+                    while (studentCursor.hasNext()) {
 
-    // // ! Case-2 if the student stayed even after the class Ended..
+                        org.bson.Document studentData = studentCursor.next();
 
-    // if ((studentEndTime.getTime() >= classEndTime.getTime())
-    // && ((studentStartTime.getTime() >= classStartTime.getTime())
-    // && studentStartTime.getTime() <= classEndTime.getTime())) {
-    // durationOfStudent = (int) ((classEndTime.getTime() -
-    // studentStartTime.getTime()) / 1000);
-    // totalDurationOfStudent = totalDurationOfStudent + durationOfStudent;
-    // }
+                        Date studentStartTime = simpleDateFormat.parse(studentData.getString("Start_Time"));
+                        Date studentEndTime = simpleDateFormat.parse(studentData.getString("End_Time"));
 
-    // // ! Case-3 Student joined in time and exited in time.
-    // if ((studentStartTime.getTime() >= classStartTime.getTime()
-    // && studentStartTime.getTime() <= classEndTime.getTime())
-    // && (studentEndTime.getTime() >= classStartTime.getTime()
-    // && studentEndTime.getTime() <= classEndTime.getTime())) {
-    // durationOfStudent = studentData.getInteger("Duration");
-    // totalDurationOfStudent = totalDurationOfStudent + durationOfStudent;
-    // }
-    // }
-    // } catch (ParseException e) {
-    // e.printStackTrace();
-    // } finally {
+                        // ! Case-1 if student was already logged in before the class started..
+                        if ((studentStartTime.getTime() <= classStartTime.getTime())
+                                && ((studentEndTime.getTime() >= classStartTime.getTime()
+                                        && studentEndTime.getTime() <= classEndTime.getTime()))) {
+                            durationOfStudent = (int) ((studentEndTime.getTime() - classStartTime.getTime()) / 1000);
+                            totalDurationOfStudent = totalDurationOfStudent + durationOfStudent;
+                        }
 
-    // String Meeting_ID = data.getString("Meeting_ID");
-    // // ! this will be helpful if the student is logged in from two devices at the
-    // // ! same time or he used screen share to present his screen.
-    // if (totalDurationOfStudent > totalDurationOfClass) {
-    // totalDurationOfStudent = totalDurationOfClass;
-    // }
+                        // ! Case-2 if the student stayed even after the class Ended..
 
-    // System.out.println(totalDurationOfClass);
-    // System.out.println(totalDurationOfStudent);
+                        if ((studentEndTime.getTime() >= classEndTime.getTime())
+                                && ((studentStartTime.getTime() >= classStartTime.getTime())
+                                        && studentStartTime.getTime() <= classEndTime.getTime())) {
+                            durationOfStudent = (int) ((classEndTime.getTime() - studentStartTime.getTime()) / 1000);
+                            totalDurationOfStudent = totalDurationOfStudent + durationOfStudent;
+                        }
 
-    // // ! Period object, the important part..
-    // JSONObject subJsonObject = new JSONObject();
-    // subJsonObject.put("Meeting_ID", Meeting_ID);
-    // subJsonObject.put("Class", className);
-    // String classTimings = fromTimeShort + " to " + toTimeShort;
-    // subJsonObject.put("Class_Timings", classTimings);
-    // subJsonObject.put("Subject", subject);
-    // subJsonObject.put("Duration", totalDurationOfStudent);
+                        // ! Case-3 Student joined in time and exited in time.
+                        if ((studentStartTime.getTime() >= classStartTime.getTime()
+                                && studentStartTime.getTime() <= classEndTime.getTime())
+                                && (studentEndTime.getTime() >= classStartTime.getTime()
+                                        && studentEndTime.getTime() <= classEndTime.getTime())) {
+                            durationOfStudent = studentData.getInteger("Duration");
+                            totalDurationOfStudent = totalDurationOfStudent + durationOfStudent;
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } finally {
 
-    // // ! To check if the PeriodWiseModified document exist in the DB..
-    // Bson pwmFilter = and(eq("Meeting_ID", "ATCBCNNUPO"), eq("Participant_Email",
-    // email),
-    // eq("PeriodWiseModified", true));
-    // long pwmCount = collection.countDocuments(pwmFilter);
-    // if (pwmCount == 1) {
-    // System.out.println("Upsert update the data");
+                    String Meeting_ID = data.getString("Meeting_ID");
+                    // ! this will be helpful if the student is logged in from two devices at the
+                    // ! same time or he used screen share to present his screen.
+                    if (totalDurationOfStudent > totalDurationOfClass) {
+                        totalDurationOfStudent = totalDurationOfClass;
+                    }
 
-    // Bson periodUpdate = Updates.set(period, subJsonObject);
-    // UpdateOptions options = new UpdateOptions().upsert(true);
-    // collection.updateOne(pwmFilter, periodUpdate, options);
+                    System.out.println(totalDurationOfClass);
+                    System.out.println(totalDurationOfStudent);
 
-    // } else {
-    // System.out.println("no document created");
-    // Document document = new Document("Participant_Email",email)
-    // .append("Meeting_ID", Meeting_ID)
-    // .append("PeriodWiseModified", true)
-    // .append(period,subJsonObject);
-    // collection.insertOne(document);
-    // }
+                    // ! Period object, the important part..
+                    JSONObject subJsonObject = new JSONObject();
+                    subJsonObject.put("Meeting_ID", Meeting_ID);
+                    subJsonObject.put("Class", className);
+                    String classTimings = fromTimeShort + " to " + toTimeShort;
+                    subJsonObject.put("Class_Timings", classTimings);
+                    subJsonObject.put("Subject", subject);
+                    subJsonObject.put("Duration", totalDurationOfStudent);
 
-    // studentCursor.close();
-    // }
+                    // ! To check if the PeriodWiseModified document exist in the DB..
+                    Bson pwmFilter = and(eq("Meeting_ID", "ATCBCNNUPO"), eq("Participant_Email", email),
+                            eq("PeriodWiseModified", true));
+                    long pwmCount = collection.countDocuments(pwmFilter);
+                    if (pwmCount == 1) {
+                        System.out.println("Upsert update the data");
 
-    // }
-    // cursor.close();
-    // }
-    // }
+                        Bson periodUpdate = Updates.set(period, subJsonObject);
+                        UpdateOptions options = new UpdateOptions().upsert(true);
+                        collection.updateOne(pwmFilter, periodUpdate, options);
+
+                    } else {
+                        System.out.println("no document created");
+                        Document document = new Document("Participant_Email", email).append("Meeting_ID", Meeting_ID)
+                                .append("PeriodWiseModified", true).append(period, subJsonObject);
+                        collection.insertOne(document);
+                    }
+
+                    studentCursor.close();
+                }
+
+            }
+            cursor.close();
+        }
+    }
 
     // ! Student Fetch
     // public static void main(String[] args) {
@@ -323,49 +313,53 @@ public class playGround {
 
     // ! Get Faculty Details
 
-    public static void main(String[] args) {
+    // public static void main(String[] args) {
 
-        ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
-        MongoClient mongoClient = MongoClients.create(connectionString);
-        MongoDatabase database = mongoClient.getDatabase("university");
-        MongoCollection<org.bson.Document> collection = database.getCollection("users");
+    // ConnectionString connectionString = new
+    // ConnectionString("mongodb://127.0.0.1:27017");
+    // MongoClient mongoClient = MongoClients.create(connectionString);
+    // MongoDatabase database = mongoClient.getDatabase("university");
+    // MongoCollection<org.bson.Document> collection =
+    // database.getCollection("users");
 
-        // ! remember to get user attribute from session. to check if session exists.
+    // // ! remember to get user attribute from session. to check if session exists.
 
-        Bson filter = and(eq("email", "test@faculty.ac.in"));
-        Bson projection = Projections.fields(Projections.include("class", "subject"), Projections.excludeId());
+    // Bson filter = and(eq("email", "test@faculty.ac.in"));
+    // Bson projection = Projections.fields(Projections.include("class", "subject"),
+    // Projections.excludeId());
 
-        MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
-        org.bson.Document data = null;
-        JSONArray array = new JSONArray();
-        try {
-            while (cursor.hasNext()) {
-                data = cursor.next();
-                ArrayList<String> classes = (ArrayList<String>) data.get("class");
-                ArrayList<String> subjects = (ArrayList<String>) data.get("subject");
-                ArrayList<String> checkNull = new ArrayList<String>();
-                System.out.println(checkNull.size());
-                checkNull.add("initial");
-                if (checkNull.size() == 0) {
-                    checkNull.add("added");
-                }else{
-                    checkNull.add("Not added");
-                }
-                System.out.println(checkNull.size());
-                System.out.println(checkNull);
+    // MongoCursor<org.bson.Document> cursor =
+    // collection.find(filter).projection(projection).cursor();
+    // org.bson.Document data = null;
+    // JSONArray array = new JSONArray();
+    // try {
+    // while (cursor.hasNext()) {
+    // data = cursor.next();
+    // ArrayList<String> classes = (ArrayList<String>) data.get("class");
+    // ArrayList<String> subjects = (ArrayList<String>) data.get("subject");
+    // ArrayList<String> checkNull = new ArrayList<String>();
+    // System.out.println(checkNull.size());
+    // checkNull.add("initial");
+    // if (checkNull.size() == 0) {
+    // checkNull.add("added");
+    // }else{
+    // checkNull.add("Not added");
+    // }
+    // System.out.println(checkNull.size());
+    // System.out.println(checkNull);
 
-                System.out.println(classes);
-                System.out.println(subjects);
-            }
-        } finally {
+    // System.out.println(classes);
+    // System.out.println(subjects);
+    // }
+    // } finally {
 
-            // PrintWriter out = response.getWriter();
-            // response.setContentType("application/json");
-            // response.setCharacterEncoding("UTF-8");
-            // out.print(array);
-            // out.flush();
-            cursor.close();
-        }
-    }
+    // // PrintWriter out = response.getWriter();
+    // // response.setContentType("application/json");
+    // // response.setCharacterEncoding("UTF-8");
+    // // out.print(array);
+    // // out.flush();
+    // cursor.close();
+    // }
+    // }
 
 }

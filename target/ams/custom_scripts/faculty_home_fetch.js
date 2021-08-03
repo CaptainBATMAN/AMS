@@ -6,7 +6,8 @@ $(document).ready(function () {
     }
 
     var currentDate = new Date();
-    initDates("date", currentDate);
+    initDates("fromDate", currentDate);
+    initDates("toDate", currentDate);
 
     function initDates(elementId, selectedDate) {
         var selector = '#' + elementId;
@@ -19,25 +20,6 @@ $(document).ready(function () {
     }
 
     $('#fetchButton').click(function () {
-
-        if ($('#fromTime').val() === "") {
-            alert('Please fill all the fields before fetching,,');
-            return;
-        }
-        if ($('#toTime').val() === "") {
-            alert('Please fill all the fields before fetching,,');
-            return;
-        }
-
-        if ($('#class').val() === "") {
-            alert('Please fill all the fields before fetching,,');
-            return;
-        }
-        if ($('#subject').val() === "") {
-            alert('Please fill all the fields before fetching,,');
-            return;
-        }
-
         if (!$("#attendanceReportsCard").hasClass("d-none")) {
             $("#attendanceReportsCard").addClass("d-none");
         }
@@ -53,19 +35,21 @@ $(document).ready(function () {
 
     function renderAttendanceData() {
         var meetingID = $("#gmeetcode").val();
-        var date = $("#date").val();
-        var dateInMillis = moment(date, 'YYYY-MM-DD').valueOf();
-        var dateString = moment(dateInMillis, 'x').format('DD-MM-YYYY');
-        // var fromTime = ($('#fromTime').val())+':00';
-        // var toTime = ($('#toTime').val())+':00';
+        var fromDate = $("#fromDate").val();
+        var toDate = $("#toDate").val();
+
+        var fromDateInMillis = moment(fromDate, 'YYYY-MM-DD').valueOf();
+        var toDateInMillis = moment(toDate, 'YYYY-MM-DD').valueOf();
+        var fromDateString = moment(fromDateInMillis, 'x').format('DD-MM-YYYY');
+        var toDateString = moment(toDateInMillis, 'x').format('DD-MM-YYYY');
+
         var subject = $('#subject').val();
         var className = $('#class').val();
-        // var period = $('input[name="period"]:checked').val();
 
         $.ajax({
             url: '../facultyHomeAttendanceFetch',
             method: 'POST',
-            data: { Date: dateString, subject: subject, className: className, Meeting_ID: meetingID },
+            data: { fromDate: fromDateString, toDate: toDateString, subject: subject, className: className, Meeting_ID: meetingID },
             success: function (attendanceData) {
                 console.dir(attendanceData)
                 if (!attendanceData.length) {
@@ -114,7 +98,7 @@ $(document).ready(function () {
     }
 
 
-    
+
 });
 
 

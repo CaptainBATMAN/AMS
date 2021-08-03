@@ -113,7 +113,9 @@ public class loginAuth extends HttpServlet {
         String FetchedPassword = null;
         String FetchedUser_role = null;
         String redirectURL = "login.jsp";
+
         MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
+        
         org.bson.Document data = null;
         try {
             while (cursor.hasNext()) {
@@ -133,13 +135,11 @@ public class loginAuth extends HttpServlet {
 
             if (loginId.equals(FetchedEmail) && pwd.equals(FetchedPassword)) {
                 if (FetchedUser_role.equals("student")) {
-
                     HttpSession session = request.getSession();
                     session.setAttribute("user", loginId);
                     session.setAttribute("role", FetchedUser_role);
                     redirectURL = "./secure/studentHome.jsp";
                 } else if (FetchedUser_role.equals("faculty")) {
-
                     HttpSession session = request.getSession();
                     session.setAttribute("user", loginId);
                     session.setAttribute("role", FetchedUser_role);
