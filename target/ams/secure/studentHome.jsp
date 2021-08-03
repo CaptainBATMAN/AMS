@@ -29,6 +29,7 @@
 <body>
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+    String UserEmail = (String) session.getAttribute("user");
     String URL = "";
         if(session.getAttribute("user")==null){
         
@@ -53,8 +54,8 @@
                 </a>
                 <div class="navbar-collapse collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"></a>
+                        <li class="nav-item active">
+                            <a class="nav-link" style="position: absolute; right: 80px; margin: auto 0;bottom: 5    px;"><%= UserEmail%></a>
                         </li>
                         <li class="nav-item">
                             <form action="../logout" method="POST">

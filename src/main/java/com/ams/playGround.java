@@ -229,87 +229,143 @@ public class playGround {
     // }
     // }
 
-
     // ! Student Fetch
     // public static void main(String[] args) {
 
-    //     // * get params from request
-    //     String date = "11-11-2020";
-    //     String subject = "USP";
-    //     String className = "CSE-05";
-    //     String meetingID = "";
+    // // * get params from request
+    // String date = "11-11-2020";
+    // String subject = "USP";
+    // String className = "CSE-05";
+    // String meetingID = "";
 
-    //     // * creating DB instance
-    //     String collectionName = "db_" + date.replace("-", "_");
-    //     ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
-    //     MongoClient mongoClient = MongoClients.create(connectionString);
-    //     MongoDatabase database = mongoClient.getDatabase("university");
-    //     MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
+    // // * creating DB instance
+    // String collectionName = "db_" + date.replace("-", "_");
+    // ConnectionString connectionString = new
+    // ConnectionString("mongodb://127.0.0.1:27017");
+    // MongoClient mongoClient = MongoClients.create(connectionString);
+    // MongoDatabase database = mongoClient.getDatabase("university");
+    // MongoCollection<org.bson.Document> collection =
+    // database.getCollection(collectionName);
 
-    //     // * filtering data and fields needed.
-    //     Bson newFilter;
-    //     newFilter = and(eq("PeriodWiseModified", true));
-    //     Bson projection = Projections.fields(Projections.include("Participant_Email", "Meeting_ID", "P1", "P2", "P3"),
-    //             Projections.excludeId());
+    // // * filtering data and fields needed.
+    // Bson newFilter;
+    // newFilter = and(eq("PeriodWiseModified", true));
+    // Bson projection = Projections.fields(Projections.include("Participant_Email",
+    // "Meeting_ID", "P1", "P2", "P3"),
+    // Projections.excludeId());
 
-    //     long count = collection.countDocuments(newFilter);
-    //     System.out.println(count);
-    //     MongoCursor<org.bson.Document> cursor = collection.find(newFilter).projection(projection).cursor();
-    //     org.bson.Document data = null;
-    //     JSONArray array = new JSONArray();
+    // long count = collection.countDocuments(newFilter);
+    // System.out.println(count);
+    // MongoCursor<org.bson.Document> cursor =
+    // collection.find(newFilter).projection(projection).cursor();
+    // org.bson.Document data = null;
+    // JSONArray array = new JSONArray();
 
-    //     try {
+    // try {``
 
-    //         // * traversing through all the documents
-    //         while (cursor.hasNext()) {
-    //             data = cursor.next();
-    //             JSONObject jsonObject = new JSONObject();
+    // // * traversing through all the documents
+    // while (cursor.hasNext()) {
+    // data = cursor.next();
+    // JSONObject jsonObject = new JSONObject();
 
-    //             Bson p1Filter = and(eq("P1.Subject", subject), eq("P1.Class", className));
-    //             Bson p2Filter = and(eq("P2.Subject", subject), eq("P2.Class", className));
-    //             Bson p3Filter = and(eq("P3.Subject", subject), eq("P3.Class", className));
+    // Bson p1Filter = and(eq("P1.Subject", subject), eq("P1.Class", className));
+    // Bson p2Filter = and(eq("P2.Subject", subject), eq("P2.Class", className));
+    // Bson p3Filter = and(eq("P3.Subject", subject), eq("P3.Class", className));
 
-    //             long p1Count, p2Count, p3Count;
-    //             p1Count = collection.countDocuments(p1Filter);
-    //             p2Count = collection.countDocuments(p2Filter);
-    //             p3Count = collection.countDocuments(p3Filter);
-    //             System.out.println(p1Count);
-    //             System.out.println(p2Count);
-    //             System.out.println(p3Count);
+    // long p1Count, p2Count, p3Count;
+    // p1Count = collection.countDocuments(p1Filter);
+    // p2Count = collection.countDocuments(p2Filter);
+    // p3Count = collection.countDocuments(p3Filter);
+    // System.out.println(p1Count);
+    // System.out.println(p2Count);
+    // System.out.println(p3Count);
 
-    //             if (p1Count > 0) {
-    //                 jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-    //                 jsonObject.put("Meeting_ID", data.get("P1", Document.class).getString("Meeting_ID"));
-    //                 jsonObject.put("Class", data.get("P1", Document.class).getString("Class"));
-    //                 jsonObject.put("Subject", data.get("P1", Document.class).getString("Subject"));
-    //                 jsonObject.put("Duration", data.get("P1", Document.class).getInteger("Duration"));
-    //                 array.add(jsonObject);
-    //             }
-    //             if (p2Count > 0) {
-    //                 jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-    //                 jsonObject.put("Meeting_ID", data.get("P2", Document.class).getString("Meeting_ID"));
-    //                 jsonObject.put("Class", data.get("P2", Document.class).getString("Class"));
-    //                 jsonObject.put("Subject", data.get("P2", Document.class).getString("Subject"));
-    //                 jsonObject.put("Duration", data.get("P2", Document.class).getInteger("Duration"));
-    //                 array.add(jsonObject);
-    //             }
-    //             if (p3Count > 0) {
-    //                 jsonObject.put("Participant_Email", data.getString("Participant_Email"));
-    //                 jsonObject.put("Meeting_ID", data.get("P3", Document.class).getString("Meeting_ID"));
-    //                 jsonObject.put("Class", data.get("P3", Document.class).getString("Class"));
-    //                 jsonObject.put("Subject", data.get("P3", Document.class).getString("Subject"));
-    //                 jsonObject.put("Duration", data.get("P3", Document.class).getInteger("Duration"));
-    //                 array.add(jsonObject);
-    //             }
-    //         }
-    //     } finally {
-    //         // * Sending JSOM array as a response
-    //         System.out.println(array);
-    //         cursor.close();
-    //     }
+    // if (p1Count > 0) {
+    // jsonObject.put("Participant_Email", data.getString("Participant_Email"));
+    // jsonObject.put("Meeting_ID", data.get("P1",
+    // Document.class).getString("Meeting_ID"));
+    // jsonObject.put("Class", data.get("P1", Document.class).getString("Class"));
+    // jsonObject.put("Subject", data.get("P1",
+    // Document.class).getString("Subject"));
+    // jsonObject.put("Duration", data.get("P1",
+    // Document.class).getInteger("Duration"));
+    // array.add(jsonObject);
+    // }
+    // if (p2Count > 0) {
+    // jsonObject.put("Participant_Email", data.getString("Participant_Email"));
+    // jsonObject.put("Meeting_ID", data.get("P2",
+    // Document.class).getString("Meeting_ID"));
+    // jsonObject.put("Class", data.get("P2", Document.class).getString("Class"));
+    // jsonObject.put("Subject", data.get("P2",
+    // Document.class).getString("Subject"));
+    // jsonObject.put("Duration", data.get("P2",
+    // Document.class).getInteger("Duration"));
+    // array.add(jsonObject);
+    // }
+    // if (p3Count > 0) {
+    // jsonObject.put("Participant_Email", data.getString("Participant_Email"));
+    // jsonObject.put("Meeting_ID", data.get("P3",
+    // Document.class).getString("Meeting_ID"));
+    // jsonObject.put("Class", data.get("P3", Document.class).getString("Class"));
+    // jsonObject.put("Subject", data.get("P3",
+    // Document.class).getString("Subject"));
+    // jsonObject.put("Duration", data.get("P3",
+    // Document.class).getInteger("Duration"));
+    // array.add(jsonObject);
+    // }
+    // }
+    // } finally {
+    // // * Sending JSOM array as a response
+    // System.out.println(array);
+    // cursor.close();
+    // }
     // }
 
+    // ! Get Faculty Details
 
+    public static void main(String[] args) {
 
-    
+        ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase database = mongoClient.getDatabase("university");
+        MongoCollection<org.bson.Document> collection = database.getCollection("users");
+
+        // ! remember to get user attribute from session. to check if session exists.
+
+        Bson filter = and(eq("email", "test@faculty.ac.in"));
+        Bson projection = Projections.fields(Projections.include("class", "subject"), Projections.excludeId());
+
+        MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
+        org.bson.Document data = null;
+        JSONArray array = new JSONArray();
+        try {
+            while (cursor.hasNext()) {
+                data = cursor.next();
+                ArrayList<String> classes = (ArrayList<String>) data.get("class");
+                ArrayList<String> subjects = (ArrayList<String>) data.get("subject");
+                ArrayList<String> checkNull = new ArrayList<String>();
+                System.out.println(checkNull.size());
+                checkNull.add("initial");
+                if (checkNull.size() == 0) {
+                    checkNull.add("added");
+                }else{
+                    checkNull.add("Not added");
+                }
+                System.out.println(checkNull.size());
+                System.out.println(checkNull);
+
+                System.out.println(classes);
+                System.out.println(subjects);
+            }
+        } finally {
+
+            // PrintWriter out = response.getWriter();
+            // response.setContentType("application/json");
+            // response.setCharacterEncoding("UTF-8");
+            // out.print(array);
+            // out.flush();
+            cursor.close();
+        }
+    }
+
 }

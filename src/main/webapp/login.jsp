@@ -21,7 +21,8 @@
 
 <body>
 
-    <% String status = (String) request.getAttribute("status");
+    <% 
+    String status = (String) request.getAttribute("status");
     if(status == null){
         status = "";
     }

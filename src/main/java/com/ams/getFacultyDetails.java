@@ -1,5 +1,4 @@
 package com.ams;
-
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,11 +29,9 @@ import org.bson.json.JsonMode;
 
 import static com.mongodb.client.model.Filters.*;
 
-
-public class fetchStudentAttendanceStudentHome extends HttpServlet {
-
-    
-    public fetchStudentAttendanceStudentHome() {
+public class getFacultyDetails {
+ 
+    public getFacultyDetails() {
         super();
     }
 

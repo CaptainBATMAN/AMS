@@ -94,21 +94,30 @@ public class loginAuth extends HttpServlet {
 
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
-        MongoDatabase database = mongoClient.getDatabase("university");
-        MongoCollection<org.bson.Document> collection = database.getCollection("users");
+        MongoDatabase database = mongoClient.getDatabase("users");
 
+        MongoCollection<org.bson.Document> collection = database.getCollection("faculty");
         Bson filter = eq("email", loginId);
-        Bson projection = Projections.fields(Projections.include("email", "password", "user_role"),
-                Projections.excludeId());
+        long countInFaculty = collection.countDocuments(filter);
+        Bson projection = null;
+        if (countInFaculty == 0) {
+            collection = database.getCollection("students");
+            projection = Projections.fields(Projections.include("email", "password", "user_role"),
+                    Projections.excludeId());
+        } else {
+            projection = Projections.fields(Projections.include("email", "password", "user_role", "class", "subject"),
+                    Projections.excludeId());
+        }
 
         String FetchedEmail = null;
         String FetchedPassword = null;
         String FetchedUser_role = null;
         String redirectURL = "login.jsp";
         MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
+        org.bson.Document data = null;
         try {
             while (cursor.hasNext()) {
-                org.bson.Document data = cursor.next();
+                data = cursor.next();
                 FetchedEmail = data.getString("email");
                 FetchedPassword = data.getString("password");
                 FetchedUser_role = data.getString("user_role");
@@ -134,6 +143,8 @@ public class loginAuth extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", loginId);
                     session.setAttribute("role", FetchedUser_role);
+                    session.setAttribute("class", data.get("class"));
+                    session.setAttribute("subject", data.get("subject"));
                     redirectURL = "./secure/facultyHomeFetch.jsp";
                 }
             } else {

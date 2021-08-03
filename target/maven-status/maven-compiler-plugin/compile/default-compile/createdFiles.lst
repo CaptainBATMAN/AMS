@@ -1,6 +1,7 @@
 com/ams/fetchStudentAttendanceStudentHome.class
-com/ams/playGround.class
 com/ams/logout.class
+com/ams/getFacultyDetails.class
+com/ams/playGround.class
 com/ams/facultyHomeAttendanceFetch.class
 com/ams/loginAuth.class
 com/ams/facultyHomeAttendanceUpdate.class
