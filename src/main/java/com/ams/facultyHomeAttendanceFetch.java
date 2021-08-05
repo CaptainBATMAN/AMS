@@ -153,15 +153,17 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
             throws ServletException, IOException {
 
         // * get params from request
-        String date = request.getParameter("Date");
+        String date = request.getParameter("fromDate");
         String subject = request.getParameter("subject");
         String className = request.getParameter("className");
 
         // * creating DB instance
-        String collectionName = "db_" + date.replace("-", "_");
+
+        String dbName = className.toLowerCase().replace("-", "_");
+        String collectionName = dbName + "_" + date.replace("-", "_");
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
-        MongoDatabase database = mongoClient.getDatabase("university");
+        MongoDatabase database = mongoClient.getDatabase(dbName);
         MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
         // * filtering data and fields needed.

@@ -102,7 +102,7 @@ public class loginAuth extends HttpServlet {
         Bson projection = null;
         if (countInFaculty == 0) {
             collection = database.getCollection("students");
-            projection = Projections.fields(Projections.include("email", "password", "user_role"),
+            projection = Projections.fields(Projections.include("email", "password", "user_role", "class"),
                     Projections.excludeId());
         } else {
             projection = Projections.fields(Projections.include("email", "password", "user_role", "class", "subject"),
@@ -115,7 +115,7 @@ public class loginAuth extends HttpServlet {
         String redirectURL = "login.jsp";
 
         MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();
-        
+
         org.bson.Document data = null;
         try {
             while (cursor.hasNext()) {
@@ -138,6 +138,7 @@ public class loginAuth extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", loginId);
                     session.setAttribute("role", FetchedUser_role);
+                    session.setAttribute("class", data.getString("class"));
                     redirectURL = "./secure/studentHome.jsp";
                 } else if (FetchedUser_role.equals("faculty")) {
                     HttpSession session = request.getSession();

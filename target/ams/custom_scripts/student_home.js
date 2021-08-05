@@ -19,6 +19,7 @@ $(document).ready(function () {
         $(selector).datepicker('setDate', selectedDate);
     }
 
+    var counter = 0;
     $('#fetchButton').click(function () {
         if (!$("#attendanceReportsCard").hasClass("d-none")) {
             $("#attendanceReportsCard").addClass("d-none");
@@ -37,73 +38,120 @@ $(document).ready(function () {
         var fromDate = $('#fromDate').val();
         var toDate = $('#toDate').val();
         var fromDateMillis = moment(fromDate, 'YYYY-MM-DD').valueOf();
-        // var toDateMillis = moment(toDateString, 'YYYY-MM-DD').valueOf();
-        // var totalNoOfDays = ((toDateMillis - fromDateMillis) / 86400000) + 1;
-        // if (totalNoOfDays > 31) {
-        //     alertify.error('Maximum range is 31 days. Please change time range and try again.', "6");
-        //     return;
-        // }
-        // var noOfDaysCount = 1;
-        // if (toDateMillis < fromDateMillis) {
-        //     alertify.error('To Date is before From Date. Please select a valid date range.', "6");
-        //     return;
-        // }
+        var toDateMillis = moment(toDate, 'YYYY-MM-DD').valueOf();
 
-        var currentDateString = moment(fromDateMillis, 'x').format('DD-MM-YYYY');
+        var totalNoOfDays = ((toDateMillis - fromDateMillis) / 86400000) + 1;
 
-        $.ajax({
-            url: '../fetchStudentAttendanceStudentHome',
-            method: 'POST',
-            data: { Date: currentDateString },
-            success: function (attendanceData) {
-                if (!attendanceData.length) {
-                    $('#attendanceReportsCard').removeClass('d-none');
-                    $('#noAttendanceRecords').removeClass('d-none');
-                }
-                else {
-                    $('#attendanceReportsCard').removeClass('d-none');
-                    $('#renderAttendanceReports').removeClass('d-none');
-                    console.dir(attendanceData);
+        if (totalNoOfDays > 31) {
+            alert('Maximum range is 31 days. Please change time range and try again.');
+            return;
+        }
+        var noOfDaysCount = 1;
+        if (toDateMillis < fromDateMillis) {
+            alert('To Date is before From Date. Please select a valid date range.');
+            return;
+        }
 
-                    var date = attendanceData[0].date;
-                    var P1 = attendanceData[0].P1.Class_Timings + "\n" + attendanceData[0].P1.Meeting_ID + "\n" + attendanceData[0].P1.Duration;
-                    var P2 = attendanceData[0].P2.Class_Timings + "\n" + attendanceData[0].P2.Meeting_ID + "\n" + attendanceData[0].P2.Duration;
-                    var P3 = attendanceData[0].P3.Class_Timings + "\n" + attendanceData[0].P3.Meeting_ID + "\n" + attendanceData[0].P3.Duration;
-                   
-                    console.log(P1)
-                    console.log(P2)
-                    console.log(P3)
-                   
-                   
-                    var mainAttendanceData = [
-                        {
-                            "date": date,
-                            "P1": P1,
-                            "P2": P2,
-                            "P3": P3
+        var currentDateMillis = fromDateMillis;
+
+        var mainAttendanceData = [];
+        function getNextData() {
+            var currentDateString = moment(currentDateMillis, 'x').format('DD-MM-YYYY');
+
+            main(currentDateString);
+            async function main(currentDateString) {
+
+                const data = await $.ajax({
+                    url: '../fetchStudentAttendanceStudentHome',
+                    method: 'POST',
+                    data: { Date: currentDateString },
+                    success: function (attendanceData) {
+                        if (attendanceData.length) {
+                            mainAttendanceData.push(attendanceData[0]);
                         }
-                ];
-                    console.log(mainAttendanceData);
-                    $('#data-table').DataTable({
-                        "retrieve": true,
-                        "lengthMenu": [[5, 10, 25, 50, 75, 100, -1], [5, 10, 25, 50, 75, 100, "All"]],
-                        "pageLength": 10,
-                        "scrollX": true,
-                        "dom": "<'row'<'col-12 col-lg-2'l><'col-12 col-lg-6 text-center'B><'col-12 col-lg-4'f>><'row'<'col-12'tr>><'row'<'col-5'i><'col-7'p>>",
-                        "data": mainAttendanceData,
-                        "columns": [
-                            { "data": "date" },
-                            { "data": "P1" },
-                            { "data": "P2" },
-                            { "data": "P3" }
-                        ]
-                    });
+                    },
+                    error: function (jqXHR, exception) {
+                        console.log('Error occured while fetching data!!');
+                    }
+                });
 
+                if (noOfDaysCount < totalNoOfDays) {
+                    noOfDaysCount += 1;
+                    currentDateMillis += 86400000;
+                    getNextData();
+                } else {
+                    var finalMainAttendanceData = [];
+                    if (!mainAttendanceData.length) {
+                        $('#attendanceReportsCard').removeClass('d-none');
+                        $('#noAttendanceRecords').removeClass('d-none');
+                    }
+                    else {
+                        $('#attendanceReportsCard').removeClass('d-none');
+                        $('#renderAttendanceReports').removeClass('d-none');
+
+                        
+
+                        for (let i = 0; i < mainAttendanceData.length; i++) {
+
+
+                            var date = mainAttendanceData[i].date;
+
+                            var P1 = mainAttendanceData[i].P1.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P1.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P1.Duration;
+                            var P2 = mainAttendanceData[i].P2.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P2.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P2.Duration;
+                            var P3 = mainAttendanceData[i].P3.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P3.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P3.Duration;
+
+                            P1 = P1 + ((mainAttendanceData[i].P1.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+                            P2 = P2 + ((mainAttendanceData[i].P2.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+                            P3 = P3 + ((mainAttendanceData[i].P3.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+
+                            finalMainAttendanceDataArrayObj =
+                            {
+                                "date": date,
+                                "P1": P1,
+                                "P2": P2,
+                                "P3": P3
+                            };
+                            finalMainAttendanceData.push(finalMainAttendanceDataArrayObj);
+                        }
+                    }
+                    if(finalMainAttendanceData.length){
+                        renderTable(finalMainAttendanceData);
+                    }
                 }
-            },
-            error: function (jqXHR, exception) {
-                console.log('Error occured while fetching data!!');
             }
-        });
+        }
+
+        getNextData();
+    }
+
+    var table;
+    function renderTable(finalMainAttendanceData) {
+
+        if (counter >= 0) {
+            if (counter > 0) {
+                table.clear();
+                table.rows.add(finalMainAttendanceData).draw();
+            }
+            else {
+                table = $('#data-table').DataTable({
+                    "retrieve": true,
+                    "lengthMenu": [[5, 10, 25, 50, 75, 100, -1], [5, 10, 25, 50, 75, 100, "All"]],
+                    "pageLength": 10,
+                    "scrollX": true,
+                    "dom": "<'row'<'col-12 col-lg-2'l><'col-12 col-lg-6 text-center'B><'col-12 col-lg-4'f>><'row'<'col-12'tr>><'row'<'col-5'i><'col-7'p>>",
+                    "data": finalMainAttendanceData,
+                    "columns": [
+                        { "data": "date" },
+                        { "data": "P1" },
+                        { "data": "P2" },
+                        { "data": "P3" }
+                    ]
+                });
+                table.clear();
+                counter += 1;
+            }
+        }
+
+
     }
 });

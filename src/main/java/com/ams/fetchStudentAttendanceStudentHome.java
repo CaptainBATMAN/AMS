@@ -19,6 +19,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
+import com.mongodb.session.SessionContext;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -45,14 +46,18 @@ public class fetchStudentAttendanceStudentHome extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String date = request.getParameter("Date");
-        String collectionName = "db_"+ date.replace("-","_");
-        ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
-        MongoClient mongoClient = MongoClients.create(connectionString);
-        MongoDatabase database = mongoClient.getDatabase("university");
-        MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
         HttpSession session = request.getSession();
+        
+        String date = request.getParameter("Date");
+        String className = (String) session.getAttribute("class");        
+        String dbName = className.toLowerCase().replace("-", "_");
+        String collectionName = dbName + "_" + date.replace("-", "_");
+        ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase database = mongoClient.getDatabase(dbName);
+        MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
+
         Bson filter = and(eq("Participant_Email", session.getAttribute("user")), eq("PeriodWiseModified",true));
         Bson projection = Projections.fields(Projections.include("P1","P2", "P3", "Meeting_ID"),
                 Projections.excludeId());

@@ -63,7 +63,7 @@
                             <div class="navbar-collapse collapse" id="navbarNav">
                                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="./facultyHomeFetch.jsp">Fetch</a>
+                                        <a class="nav-link" href="./facultyHomeFetch.jsp">View</a>
                                     </li>
                                     <li class="nav-item active" >
                                         <a class="nav-link" style="color: #28a745 !important;" href="./facultyHomeUpdate.jsp">Update</a>
@@ -147,21 +147,6 @@
                                                         <input type="time" class="input-sm form-control" id="toTime" />
                                                     </p>
                                                 </div>
-                                                <!-- !subject -->
-                                                <div class="form-group col-md-6">
-                                                    <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <label class="input-group-text text-dark"
-                                                                        for="subject">Subject :</label>
-                                                                </div>
-                                                                <select name = "subject" class="custom-select" id="subject">
-                                                                    
-                                                                    <% for(int i=0; i < subjects.size();i++) {%>
-                                                                        <option value="<%= subjects.get(i)%>"> <%= subjects.get(i)%></option>
-                                                                    <% } %>
-                                                                </select>
-                                                            </div>
-                                                </div>
                                                 <!-- ! class -->
                                                 <div class="form-group col-md-6">
                                                     <div class="input-group">
@@ -173,6 +158,22 @@
                             
                                                                     <% for(int i=0; i < classes.size();i++) {%>
                                                                         <option value="<%= classes.get(i)%>"> <%= classes.get(i)%></option>
+                                                                    <% } %>
+                                                                    
+                                                                </select>
+                                                            </div>
+                                                </div>
+                                                <!-- !subject -->
+                                                <div class="form-group col-md-6">
+                                                    <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <label class="input-group-text text-dark"
+                                                                        for="subject">Subject :</label>
+                                                                </div>
+                                                                <select name = "subject" class="custom-select" id="subject">
+                                                                    
+                                                                    <% for(int i=0; i < subjects.size();i++) {%>
+                                                                        <option value="<%= subjects.get(i)%>"> <%= subjects.get(i)%></option>
                                                                     <% } %>
                                                                     <% } %>
                                                                 </select>

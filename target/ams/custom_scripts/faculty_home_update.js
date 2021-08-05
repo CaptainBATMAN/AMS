@@ -45,7 +45,6 @@ $(document).ready(function () {
         var date = $("#date").val();
         var dateInMillis = moment(date, 'YYYY-MM-DD').valueOf();
         var dateString = moment(dateInMillis, 'x').format('DD-MM-YYYY');
-        console.log(dateString)
         var fromTime = ($('#fromTime').val());
         var toTime = ($('#toTime').val());
         var subject = $('#subject').val();
