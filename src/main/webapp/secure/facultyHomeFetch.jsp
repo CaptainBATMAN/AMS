@@ -163,7 +163,7 @@
                                                                     </div>
                                                                     <!-- !subject -->
                                                                     <div class="form-group col-md-6"
-                                                                        style="margin-top: 10px;">
+                                                                        style="margin-top: 10px;" id="subjectCard">
                                                                         <div class="input-group">
                                                                             <div class="input-group-prepend">
                                                                                 <label
@@ -186,33 +186,26 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <!-- ! Period number Radio buttons -->
-                                                                    <!-- <div class="form-group" style="margin-left: 0">
-                                                    <div class="form-check">
-                                                        <label for="period"
-                                                            style="margin-right: 30px; margin-left: 15px">Period :
-                                                        </label>
-                                                        <input class="form-check-input" type="radio" name="period"
-                                                            id="exampleRadios1" value="P1" />
-                                                        <label class="form-check-label" for="exampleRadios1">
-                                                            Period 1
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check" style="margin-left: 15px">
-                                                        <input class="form-check-input" type="radio" name="period"
-                                                            id="exampleRadios2" value="P2" />
-                                                        <label class="form-check-label" for="exampleRadios2">
-                                                            Period 2
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check" style="margin-left: 15px">
-                                                        <input class="form-check-input" type="radio" name="period"
-                                                            id="exampleRadios3" value="P3" />
-                                                        <label class="form-check-label" for="exampleRadios3">
-                                                            Period 3
-                                                        </label>
-                                                    </div>
-                                                </div> -->
+                                                                    <div class="form-group col-md-6 d-none"
+                                                                        style="margin-top: 10px;" id="customTopicCard">
+
+                                                                        <input type="text" class="input-sm form-control"
+                                                                            id="customTopic"
+                                                                            placeholder="Custom Topic" 
+                                                                            style="text-transform:uppercase"/>
+
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <div class="form-check">
+                                                                            <input name="customTopicCheck"
+                                                                                class="form-check-input" type="checkbox"
+                                                                                value="" id="customTopicCheck">
+                                                                            <label class="form-check-label"
+                                                                                for="flexCheckDefault">
+                                                                                Custom Topic
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <button id="fetchButton" type="submit" style="
@@ -278,7 +271,7 @@
                                                                 <th>Student Email</th>
                                                                 <th>Meeting ID</th>
                                                                 <th>Class</th>
-                                                                <th>Subject</th>
+                                                                <th>Subject (Topic)</th>
                                                                 <th>Duration</th>
                                                                 <th>Attendance</th>
                                                             </tr>

@@ -18,6 +18,18 @@ $(document).ready(function () {
         $(selector).datepicker('setDate', selectedDate);
     }
 
+    $('#customTopicCheck').change(function () {
+        if (this.checked) {
+            $("#subject").attr("disabled", true);
+            $("#subjectCard").addClass("d-none");
+            $("#customTopicCard").removeClass("d-none");
+        } else {
+            $("#subject").removeAttr("disabled");
+            $("#subjectCard").removeClass("d-none");
+            $("#customTopicCard").addClass("d-none");
+        }
+    });
+
     $('#fetchButton').click(function () {
 
         if (!$("#updateReportCard").hasClass("d-none")) {
@@ -35,12 +47,14 @@ $(document).ready(function () {
             alertify.error('Fill all the fields before updating..');
             return;
         }
-        console.log($('input[name="period"]:checked').val())
         if($('input[name="period"]:checked').val() === undefined){
             alertify.error('Fill all the fields before updating..');
             return;
         }
-        
+        if ($('input[name="customTopicCheck"]').is(":checked") && ($('#customTopic').val() === "")) {
+            alertify.error('Please enter Custom Topic.');
+            return;
+         }
         
         renderAttendanceData();
     });
@@ -53,9 +67,16 @@ $(document).ready(function () {
         var dateString = moment(dateInMillis, 'x').format('DD-MM-YYYY');
         var fromTime = ($('#fromTime').val());
         var toTime = ($('#toTime').val());
-        var subject = $('#subject').val();
         var className = $('#class').val();
         var period = $('input[name="period"]:checked').val();
+
+        var subject = "";
+        if ($('input[name="customTopicCheck"]').is(":checked") && !($('#customTopic').val() === "")) {
+            subject = $('#customTopic').val();
+        }
+        else {
+            subject = $('#subject').val();
+        }
 
         $.ajax({
             url: '../facultyHomeAttendanceUpdate',

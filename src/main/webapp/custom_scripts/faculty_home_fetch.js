@@ -18,12 +18,39 @@ $(document).ready(function () {
         $(selector).datepicker('setDate', selectedDate);
     }
 
+    $('#customTopicCheck').change(function () {
+        if (this.checked) {
+            $("#subject").attr("disabled", true);
+            $("#subjectCard").addClass("d-none");
+            $("#customTopicCard").removeClass("d-none");
+        } else {
+            $("#subject").removeAttr("disabled");
+            $("#subjectCard").removeClass("d-none");
+            $("#customTopicCard").addClass("d-none");
+        }
+    });
+
+
     var counter = 0;
     $('#fetchButton').click(function () {
         var fromDate = $("#fromDate").val();
         var toDate = $("#toDate").val();
-        var subject = $('#subject').val();
+
         var className = $('#class').val();
+        var subject = "";
+
+        if ($('input[name="customTopicCheck"]').is(":checked") && ($('#customTopic').val() === "")) {
+            alertify.error('Please enter Custom Topic.');
+            return;
+        }
+
+        if ($('input[name="customTopicCheck"]').is(":checked") && !($('#customTopic').val() === "")) {
+            subject = $('#customTopic').val();
+        }
+        else {
+            subject = $('#subject').val();
+        }
+        console.log($('#subject').val());
 
         var fromDateMillis = moment(fromDate, 'YYYY-MM-DD').valueOf();
         var toDateMillis = moment(toDate, 'YYYY-MM-DD').valueOf();
@@ -83,7 +110,6 @@ $(document).ready(function () {
                     $('#renderAttendanceReports').removeClass('d-none');
 
                     // TODO Modify the attendanceData as per your requirement here
-
 
                     // ! Change minimum duration here.. 
                     var minDuration = 0;
@@ -174,10 +200,10 @@ $(document).ready(function () {
                     }
                     else {
                         var firstTime = true;
-                        
+
                         // ! Change minimum Duration Here
                         var minDuration = 0;
-                        
+
                         $('#progressBarCard').addClass('d-none');
                         $('#attendanceReportsCard').removeClass('d-none');
                         $('#renderAttendanceReportsRange').removeClass('d-none');

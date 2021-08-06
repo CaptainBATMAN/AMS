@@ -106,17 +106,28 @@ $(document).ready(function () {
                         
 
                         for (let i = 0; i < mainAttendanceData.length; i++) {
-
-
+                            
+                            
                             var date = mainAttendanceData[i].date;
+                            
+                            var P1 = "<span class='text-danger'>No Data</span>";
+                            var P2 = "<span class='text-danger'>No Data</span>";
+                            var P3 = "<span class='text-danger'>No Data</span>";
 
-                            var P1 = mainAttendanceData[i].P1.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P1.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P1.Duration;
-                            var P2 = mainAttendanceData[i].P2.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P2.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P2.Duration;
-                            var P3 = mainAttendanceData[i].P3.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P3.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P3.Duration;
-
-                            P1 = P1 + ((mainAttendanceData[i].P1.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
-                            P2 = P2 + ((mainAttendanceData[i].P2.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
-                            P3 = P3 + ((mainAttendanceData[i].P3.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+                            
+                            
+                            if(!(mainAttendanceData[i].P1 === null)){
+                                P1 = mainAttendanceData[i].P1.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P1.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P1.Duration;
+                                P1 = P1 + ((mainAttendanceData[i].P1.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+                            }
+                            if(!(mainAttendanceData[i].P2 === null)){
+                                P2 = mainAttendanceData[i].P2.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P2.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P2.Duration;
+                                P2 = P2 + ((mainAttendanceData[i].P2.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+                            }
+                            if(!(mainAttendanceData[i].P3 === null)){
+                                P3 = mainAttendanceData[i].P3.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P3.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P3.Duration;
+                                P3 = P3 + ((mainAttendanceData[i].P3.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
+                            }
 
                             var finalMainAttendanceDataArrayObj =
                             {
