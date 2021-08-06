@@ -42,22 +42,34 @@ $(document).ready(function () {
 
         var totalNoOfDays = ((toDateMillis - fromDateMillis) / 86400000) + 1;
 
+
         if (totalNoOfDays > 31) {
-            alert('Maximum range is 31 days. Please change time range and try again.');
+            alertify.error('Maximum range is 31 days. Please select a valid date range.');
             return;
         }
         var noOfDaysCount = 1;
         if (toDateMillis < fromDateMillis) {
-            alert('To Date is before From Date. Please select a valid date range.');
+            alertify.error('To Date is before From Date. Please select a valid date range.');
             return;
         }
 
         var currentDateMillis = fromDateMillis;
 
         var mainAttendanceData = [];
+
+        var newProgress = 0;
+        $('#progressBarCard').removeClass('d-none');
+        $('#progressBar').attr('aria-valuenow', 0).css('width', '0%');
+
         function getNextData() {
             var currentDateString = moment(currentDateMillis, 'x').format('DD-MM-YYYY');
 
+            if (noOfDaysCount === totalNoOfDays) {
+                $('#progressBar').attr('aria-valuenow', 100).css('width', '100%');
+            } else {
+                newProgress = (noOfDaysCount / totalNoOfDays) * 100;
+                $('#progressBar').attr('aria-valuenow', newProgress).css('width', newProgress + '%');
+            }
             main(currentDateString);
             async function main(currentDateString) {
 
@@ -82,10 +94,12 @@ $(document).ready(function () {
                 } else {
                     var finalMainAttendanceData = [];
                     if (!mainAttendanceData.length) {
+                        $('#progressBarCard').addClass('d-none');
                         $('#attendanceReportsCard').removeClass('d-none');
                         $('#noAttendanceRecords').removeClass('d-none');
                     }
                     else {
+                        $('#progressBarCard').addClass('d-none');
                         $('#attendanceReportsCard').removeClass('d-none');
                         $('#renderAttendanceReports').removeClass('d-none');
 
@@ -104,7 +118,7 @@ $(document).ready(function () {
                             P2 = P2 + ((mainAttendanceData[i].P2.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
                             P3 = P3 + ((mainAttendanceData[i].P3.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
 
-                            finalMainAttendanceDataArrayObj =
+                            var finalMainAttendanceDataArrayObj =
                             {
                                 "date": date,
                                 "P1": P1,
@@ -147,7 +161,6 @@ $(document).ready(function () {
                         { "data": "P3" }
                     ]
                 });
-                table.clear();
                 counter += 1;
             }
         }

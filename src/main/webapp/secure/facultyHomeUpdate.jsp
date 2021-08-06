@@ -27,6 +27,12 @@
             <!-- ! for DataTables -->
             <link rel="stylesheet" type="text/css" href="./../DataTables/datatables.min.css" />
             <script type="text/javascript" src="./../DataTables/datatables.min.js"></script>
+
+             <!-- ! for alertify -->
+             <link rel="stylesheet" href="../alertify/alertify.core.css" />
+             <link rel="stylesheet" href="../alertify/alertify.default.css" id="linkID" />
+             <script src="../alertify/alertify.min.js"></script>
+
         </head>
 
         <body>

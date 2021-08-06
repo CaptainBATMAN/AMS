@@ -23,6 +23,12 @@
       <!-- for DataTables -->
       <link rel="stylesheet" type="text/css" href="./../DataTables/datatables.min.css" />
       <script type="text/javascript" src="./../DataTables/datatables.min.js"></script>
+
+      <!-- ! for alertify -->
+      <link rel="stylesheet" href="../alertify/alertify.core.css" />
+      <link rel="stylesheet" href="../alertify/alertify.default.css" id="linkID" />
+      <script src="../alertify/alertify.min.js"></script>
+
     </head>
 
     <body>
@@ -48,8 +54,10 @@
               <div class="navbar-collapse collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                   <li class="nav-item active">
-                    <a class="nav-link"><%= UserEmail%></a>
-                </li>
+                    <a class="nav-link">
+                      <%= UserEmail%>
+                    </a>
+                  </li>
                   <!-- <li class="nav-item active">
                     <a class="nav-link" style="
                     position: absolute;
@@ -109,8 +117,16 @@
               </div>
             </div>
           </div>
+          <div id="progressBarCard" class="d-none" style="width: 100%; margin: 0 auto;">
+            <div id="progress" class="card-body">
+              <div class="progress">
+                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-dark"
+                  role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
 
-          <div style="margin-top: 4em">
+          <div style="margin-top: 2em">
             <div id="attendanceReportsCard" class="card border-dark d-none">
               <div class="card-header bg-dark p-1">
                 <h6 class="modal-title text-white font-weight-bold m-0">
@@ -123,8 +139,10 @@
                 </h6>
               </div>
 
+
               <div id="renderAttendanceReports" class="card-body d-none">
-                <table id="data-table" class="table table-bordered text-center" style="width: 100%; margin: 0 auto">
+                <table id="data-table" class="table table-bordered text-center table-condensed table-hover no-footer"
+                  style="width: 100%; margin: 0 auto">
                   <thead>
                     <tr>
                       <th>Date</th>

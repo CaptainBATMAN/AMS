@@ -153,7 +153,7 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
             throws ServletException, IOException {
 
         // * get params from request
-        String date = request.getParameter("fromDate");
+        String date = request.getParameter("date");
         String subject = request.getParameter("subject");
         String className = request.getParameter("className");
 

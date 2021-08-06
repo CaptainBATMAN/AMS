@@ -19,22 +19,28 @@ $(document).ready(function () {
     }
 
     $('#fetchButton').click(function () {
-        if ($('#gmeetcode').val() === "") {
-            alert('Please fill all the fields before updating..');
-            return;
-        }
-        if ($('#fromTime').val() === "") {
-            alert('Please fill all the fields before updating..');
-            return;
-        }
-        if ($('#toTime').val() === "") {
-            alert('Please fill all the fields before updating..');
-            return;
-        }
 
         if (!$("#updateReportCard").hasClass("d-none")) {
             $("#updateReportCard").addClass("d-none");
         }
+        if ($('#gmeetcode').val() === "") {
+            alertify.error('Fill all the fields before updating..');
+            return;
+        }
+        if ($('#fromTime').val() === "") {
+            alertify.error('Fill all the fields before updating..');
+            return;
+        }
+        if ($('#toTime').val() === "") {
+            alertify.error('Fill all the fields before updating..');
+            return;
+        }
+        console.log($('input[name="period"]:checked').val())
+        if($('input[name="period"]:checked').val() === undefined){
+            alertify.error('Fill all the fields before updating..');
+            return;
+        }
+        
         
         renderAttendanceData();
     });

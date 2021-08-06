@@ -27,17 +27,22 @@
             <!-- ! for DataTables -->
             <link rel="stylesheet" type="text/css" href="./../DataTables/datatables.min.css" />
             <script type="text/javascript" src="./../DataTables/datatables.min.js"></script>
+
+            <!-- ! for alertify -->
+            <link rel="stylesheet" href="../alertify/alertify.core.css" />
+            <link rel="stylesheet" href="../alertify/alertify.default.css" id="linkID" />
+            <script src="../alertify/alertify.min.js"></script>
         </head>
 
         <body>
             <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); String URL="" ;
-                if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } 
-                else if(!session.getAttribute("role").equals("faculty")){ URL="/ams/login.jsp" ; response.sendRedirect(URL);
+                if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } else
+                if(!session.getAttribute("role").equals("faculty")){ URL="/ams/login.jsp" ; response.sendRedirect(URL);
                 }else{ ArrayList<String> subjects = new ArrayList<String>();
                     ArrayList<String> classes = new ArrayList<String>();
                             subjects = (ArrayList<String>) session.getAttribute("subject");
                                 classes = (ArrayList<String>) session.getAttribute("class");
-                %>
+                                    %>
 
                                     <div class="div-center">
                                         <div id="nav-div" style="margin-bottom: 0em">
@@ -82,24 +87,8 @@
                                             </nav>
                                         </div>
 
-                                        <div id="infoCard" style="width: 40%; margin: 2em auto" class="d-none">
-                                            <div class="card border-dark">
-                                                <div class="card-header bg-dark p-1">
-                                                    <h6 class="modal-title text-white font-weight-bold m-0">Info</h6>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h6 style="padding: 0" class="text-danger">
-                                                        Please follow the below instructions:
-                                                    </h6>
-                                                    <p class="text-dark">
-                                                        1. All fields are required to update the Student Data in the
-                                                        DataBase. <br />
-                                                        2.Please check the details once again before submitting the
-                                                        data.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+
+
                                         <div class="container">
                                             <div class="d-flex row justify-content-center">
                                                 <div class="col-12 col-lg-10 mt-2">
@@ -255,8 +244,18 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        
-                                        <div style="margin-top: 0.5em">
+                                        <div id="progressBarCard" class="d-none" style="width: 100%; margin: 0 auto;">
+                                            <div id="progress" class="card-body">
+                                                <div class="progress">
+                                                    <div id="progressBar"
+                                                        class="progress-bar progress-bar-striped progress-bar-animated bg-dark"
+                                                        role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                        aria-valuemax="100" style="width: 0%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style="margin-top: 2em">
                                             <div id="attendanceReportsCard" class="card border-dark d-none">
                                                 <div class="card-header bg-dark p-1">
                                                     <h6 class="modal-title text-white font-weight-bold m-0">
@@ -270,19 +269,26 @@
                                                 </div>
 
                                                 <div id="renderAttendanceReports" class="card-body d-none">
-                                                    <table id="data-table" class="table table-bordered"
+                                                    <table id="data-table"
+                                                        class="ui celled table table-bordered text-center table-condensed table-hover no-footer"
                                                         style="width: 100%; margin: 0 auto">
                                                         <thead>
                                                             <tr>
-                                                                <th>Index</th>
-                                                                <th>Participant_Email</th>
-                                                                <th>Meeting_ID</th>
+                                                                <th>#</th>
+                                                                <th>Student Email</th>
+                                                                <th>Meeting ID</th>
                                                                 <th>Class</th>
                                                                 <th>Subject</th>
                                                                 <th>Duration</th>
+                                                                <th>Attendance</th>
                                                             </tr>
                                                         </thead>
                                                     </table>
+                                                </div>
+
+                                                <div id="renderAttendanceReportsRange" class="card-body d-none"
+                                                    style="margin-top: 1em;">
+
                                                 </div>
                                             </div>
                                         </div>
