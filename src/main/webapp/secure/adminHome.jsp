@@ -8,13 +8,14 @@
             <meta charset="UTF-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Faculty</title>
+            <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+            <title>Admin</title>
             <script src="../imported/jquery-3.6.0.js"></script>
             <script src="../imported/moment.js"></script>
 
             <!-- ! custom scripts and stylesheets -->
             <link rel="stylesheet" href="../custom_styles/customStyles.css" />
-            <script src="../custom_scripts/faculty_home_fetch.js"></script>
+            <script src="../custom_scripts/admin_home.js"></script>
 
             <!-- ! bootstrap css and js -->
             <link rel="stylesheet" href="../imported/bootstrap.min.css" />
@@ -25,29 +26,33 @@
             <script src="../imported/bootstrap-datepicker.js"></script>
 
             <!-- ! for DataTables -->
+             <!-- <link rel="stylesheet" href="./../imported/buttons.dataTables.min.css"> -->
             <link rel="stylesheet" type="text/css" href="./../DataTables/datatables.min.css" />
             <script type="text/javascript" src="./../DataTables/datatables.min.js"></script>
+            <script src="./../imported/dataTables.buttons.min.js"></script> 
 
             <!-- ! for alertify -->
             <link rel="stylesheet" href="../alertify/alertify.core.css" />
             <link rel="stylesheet" href="../alertify/alertify.default.css" id="linkID" />
             <script src="../alertify/alertify.min.js"></script>
+
+
+            <!-- ! for excel download -->
+            <script src="../imported/jszip.min.js"></script>
+            <script src="./../imported/buttons.html5.min.js"></script>
         </head>
 
         <body>
             <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
                 String URL="" ;
                 if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } 
-                else if(!session.getAttribute("role").equals("faculty")){ 
+                else if(!session.getAttribute("role").equals("admin")){ 
                     URL="/ams/login.jsp" ; 
                     response.sendRedirect(URL);
                 }
                 else{ 
-                    ArrayList<String> subjects = new ArrayList<String>();
                     ArrayList<String> classes = new ArrayList<String>();
-                    subjects = (ArrayList<String>) session.getAttribute("subject");
                     classes = (ArrayList<String>) session.getAttribute("class");
-                    
                     %>
 
                                     <div class="div-center">
@@ -59,7 +64,7 @@
             bg-dark
             font-poppins
           " style="position: relative">
-                                                <a class="navbar-brand p-0" href="./facultyHomeFetch.jsp">AMS</a>
+                                                <a class="navbar-brand p-0" href="./adminHome.jsp">AMS</a>
                                                 <a class="navbar-toggler" type="button" data-toggle="collapse"
                                                     data-target="#navbarNav" aria-controls="navbarNav"
                                                     aria-expanded="false" aria-label="Toggle navigation">
@@ -69,11 +74,7 @@
                                                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                                                         <li class="nav-item active">
                                                             <a class="nav-link" style="color: #28a745 !important;"
-                                                                href="./facultyHomeFetch.jsp">View</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link"
-                                                                href="./facultyHomeUpdate.jsp">Update</a>
+                                                                href="./adminHome.jsp">Admin</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <form action="../logout" method="POST">
@@ -127,22 +128,7 @@
                                                                                 id="toDate" />
                                                                         </p>
                                                                     </div>
-                                                                    <!-- ! from time -->
-                                                                    <!-- <div class="form-group col-md-6">
-                                                    <p class="font-weight-bolder">
-                                                        From Time:
-                                                        <input type="time" class="input-sm form-control"
-                                                            id="fromTime" />
-                                                    </p>
-                                                </div> -->
-
-                                                                    <!-- ! to time -->
-                                                                    <!-- <div class="form-group col-md-6">
-                                                    <p class="font-weight-bolder">
-                                                        To Time:
-                                                        <input type="time" class="input-sm form-control" id="toTime" />
-                                                    </p>
-                                                </div> -->
+                                                                   
                                                                     <!-- ! class -->
                                                                     <div class="form-group col-md-6"
                                                                         style="margin-top: 10px;">
@@ -164,55 +150,13 @@
                                                                                         <%= classes.get(i)%>
                                                                                     </option>
                                                                                     <% } %>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- !subject -->
-                                                                    <div class="form-group col-md-6"
-                                                                        style="margin-top: 10px;" id="subjectCard">
-                                                                        <div class="input-group">
-                                                                            <div class="input-group-prepend">
-                                                                                <label
-                                                                                    class="input-group-text text-dark"
-                                                                                    for="subject">Subject :</label>
-                                                                            </div>
-                                                                            <select name="subject" class="custom-select"
-                                                                                id="subject">
-
-                                                                                <% for(int i=0; i < subjects.size();i++)
-                                                                                    {%>
-                                                                                    <option
-                                                                                    class="custom-options"
-                                                                                        value="<%= subjects.get(i)%>">
-                                                                                        <%= subjects.get(i)%>
-                                                                                    </option>
                                                                                     <% } %>
-                                                                                        <% } %>
-
                                                                             </select>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="form-group col-md-6 d-none"
-                                                                        style="margin-top: 10px;" id="customTopicCard">
+                                                                    
 
-                                                                        <input type="text" class="input-sm form-control"
-                                                                            id="customTopic"
-                                                                            placeholder="Custom Topic" 
-                                                                            style="text-transform:uppercase"/>
-
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <div class="form-check">
-                                                                            <input name="customTopicCheck"
-                                                                                class="form-check-input" type="checkbox"
-                                                                                value="" id="customTopicCheck">
-                                                                            <label class="form-check-label"
-                                                                                for="flexCheckDefault">
-                                                                                Custom Topic
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <button id="fetchButton" type="submit" style="
@@ -228,22 +172,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="d-none" id="statsCard" style="width: 60%; margin: 0 auto;">
-                                            <div id="stats" class="card-body">
-                                                <table style="width: 100%; text-align: center;">
-                                                    <tr style="font: 800 40px system-ui;">
-                                                        <th id="totalStudents" class="text-primary"></th>
-                                                        <th id="presentStudents" class="text-success"></th>
-                                                        <th id="absentStudents" class="text-danger"></th>
-                                                    </tr>
-                                                    <tr style="font-size: 1em;">
-                                                        <th class="text-primary">Total</th>
-                                                        <th class="text-success">Present</th>
-                                                        <th class="text-danger">Absent</th>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
+                                        
                                         <div id="progressBarCard" class="d-none" style="width: 100%; margin: 0 auto;">
                                             <div id="progress" class="card-body">
                                                 <div class="progress">
@@ -266,24 +195,6 @@
                                                     <h6 class="text-danger text-center font-weight-bolder">
                                                         No Attendance Records found.
                                                     </h6>
-                                                </div>
-
-                                                <div id="renderAttendanceReports" class="card-body d-none">
-                                                    <table id="data-table"
-                                                        class="ui celled table table-bordered text-center table-condensed table-hover no-footer"
-                                                        style="width: 100%; margin: 0 auto">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Student Email</th>
-                                                                <th>Meeting ID</th>
-                                                                <th>Class</th>
-                                                                <th>Subject (Topic)</th>
-                                                                <th>Duration</th>
-                                                                <th>Attendance</th>
-                                                            </tr>
-                                                        </thead>
-                                                    </table>
                                                 </div>
 
                                                 <div id="renderAttendanceReportsRange" class="card-body d-none"

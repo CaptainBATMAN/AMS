@@ -200,7 +200,7 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
                     System.out.println("acquired collection");
                     
                     // ! To check if the PeriodWiseModified document exist in the DB..
-                    Bson pwmFilter = and(eq("Meeting_ID", meetingID), eq("Participant_Email", email),
+                    Bson pwmFilter = and(eq("Participant_Email", email),
                     eq("PeriodWiseModified", true));
                     long pwmCount = modifiedCollection.countDocuments(pwmFilter);
                     if (pwmCount == 1) {                        
@@ -209,8 +209,7 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
                         modifiedCollection.updateOne(pwmFilter, periodUpdate, options);
                         
                     } else {                        
-                        Document document = new Document("Participant_Email", email).append("Meeting_ID", Meeting_ID)
-                                .append("PeriodWiseModified", true).append(period, subJsonObject);
+                        Document document = new Document("Participant_Email", email).append("PeriodWiseModified", true).append(period, subJsonObject);
                         modifiedCollection.insertOne(document);
                     }
                     studentCursor.close();
@@ -219,7 +218,7 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
 
             // ! to acknowledge user that the data is updated successfully..
             JSONObject success = new JSONObject();
-            success.put("msg", "Student Records Updated Successfully...");
+            success.put("msg", "Student records updated successfully...");
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

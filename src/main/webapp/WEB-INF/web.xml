@@ -54,6 +54,25 @@
   <url-pattern>/facultyHomeAttendanceFetch</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>adminHomeFetch</servlet-name>
+  <servlet-class>com.ams.adminHomeFetch</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>adminHomeFetch</servlet-name>
+  <url-pattern>/adminHomeFetch</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>getsubjectsAdminFetch</servlet-name>
+  <servlet-class>com.ams.getsubjectsAdminFetch</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>getsubjectsAdminFetch</servlet-name>
+  <url-pattern>/getsubjectsAdminFetch</url-pattern>
+</servlet-mapping>
 
 </web-app>
 

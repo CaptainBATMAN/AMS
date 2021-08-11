@@ -35,14 +35,20 @@
         </head>
 
         <body>
-            <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); String URL="" ;
-                if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } else
-                if(!session.getAttribute("role").equals("faculty")){ URL="/ams/login.jsp" ; response.sendRedirect(URL);
-                }else{ ArrayList<String> subjects = new ArrayList<String>();
+            <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
+                String URL="" ;
+                if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } 
+                else if(!session.getAttribute("role").equals("faculty")){ 
+                    URL="/ams/login.jsp" ; 
+                    response.sendRedirect(URL);
+                }
+                else{ 
+                    ArrayList<String> subjects = new ArrayList<String>();
                     ArrayList<String> classes = new ArrayList<String>();
-                            subjects = (ArrayList<String>) session.getAttribute("subject");
-                                classes = (ArrayList<String>) session.getAttribute("class");
-                                    %>
+                    subjects = (ArrayList<String>) session.getAttribute("subject");
+                    classes = (ArrayList<String>) session.getAttribute("class");
+                    
+                    %>
 
                                     <div class="div-center">
                                         <div id="nav-div" style="margin-bottom: 0em">
@@ -153,7 +159,7 @@
 
                                                                                 <% for(int i=0; i < classes.size();i++)
                                                                                     {%>
-                                                                                    <option
+                                                                                    <option class="custom-options"
                                                                                         value="<%= classes.get(i)%>">
                                                                                         <%= classes.get(i)%>
                                                                                     </option>
@@ -176,6 +182,7 @@
                                                                                 <% for(int i=0; i < subjects.size();i++)
                                                                                     {%>
                                                                                     <option
+                                                                                    class="custom-options"
                                                                                         value="<%= subjects.get(i)%>">
                                                                                         <%= subjects.get(i)%>
                                                                                     </option>

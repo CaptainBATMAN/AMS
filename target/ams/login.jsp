@@ -41,7 +41,7 @@
         <!-- here goes the login card -->
         <div class="main-container" style="margin-top: 3.25em;display: flex;padding: 5emm;">
             <div class=" card border-dark ">
-                <div class="card-header bg-dark " style="padding: 0.2em; ">
+                <div class="card-header p-1 " style="padding: 0.2em; ">
                     <h6 class="modal-title text-white font-weight-bolder " style="margin-left: 0.7em; ">Login</h6>
                 </div>
                 <div class="card-body ">
@@ -50,11 +50,11 @@
                     <form action="./loginAuth" method="POST">
 
                         <div class="form-group col " style="margin-top: 1em; ">
-                            <input id="emailId" class="form-control" placeholder="Enter Email" name="emailId" type="email">
+                            <input id="emailId" class="input-sm form-control" placeholder="Enter Email" name="emailId" type="email">
                         </div>
 
                         <div class="form-group col " style="margin-top: 1.5em; ">
-                            <input id="pwd" class="form-control" placeholder="Enter password" name="pwd" type="password">
+                            <input id="pwd" class="input-sm form-control" placeholder="Enter password" name="pwd" type="password">
                         </div>
                         <div class="form-group col-2 " style=" margin-top: 1.25em; ">
                             <button type="submit " class="btn btn-success btn-sm p-2 " style="margin-bottom: -1em !important; ">Login</button>

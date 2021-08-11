@@ -139,6 +139,7 @@ public class loginAuth extends HttpServlet {
                     session.setAttribute("user", loginId);
                     session.setAttribute("role", FetchedUser_role);
                     session.setAttribute("class", data.getString("class"));
+                    session.setAttribute("name", data.getString("username"));
                     redirectURL = "./secure/studentHome.jsp";
                 } else if (FetchedUser_role.equals("faculty")) {
                     HttpSession session = request.getSession();
@@ -147,6 +148,12 @@ public class loginAuth extends HttpServlet {
                     session.setAttribute("class", data.get("class"));
                     session.setAttribute("subject", data.get("subject"));
                     redirectURL = "./secure/facultyHomeFetch.jsp";
+                } else if (FetchedUser_role.equals("admin")) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("user", loginId);
+                    session.setAttribute("role", FetchedUser_role);
+                    session.setAttribute("class", data.get("class"));
+                    redirectURL = "./secure/adminHome.jsp";
                 }
             } else {
                 request.setAttribute("status", "Wrong Credentials. Try again.");

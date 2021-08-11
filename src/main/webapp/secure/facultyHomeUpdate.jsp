@@ -36,20 +36,14 @@
         </head>
 
         <body>
-            <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
-                String URL="" ;
-                if(session.getAttribute("user")==null){ 
-                    URL="/ams/login.jsp" ; response.sendRedirect(URL); 
-                } else if(!session.getAttribute("role").equals("faculty")){ 
-                    URL="/ams/login.jsp" ; 
-                    response.sendRedirect(URL);
-                }
-                else{ 
-                    ArrayList<String> subjects = new ArrayList<String>();
+            <% response.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); String URL="" ;
+                if(session.getAttribute("user")==null){ URL="/ams/login.jsp" ; response.sendRedirect(URL); } else
+                if(!session.getAttribute("role").equals("faculty")){ URL="/ams/login.jsp" ; response.sendRedirect(URL);
+                } else{ ArrayList<String> subjects = new ArrayList<String>();
                     ArrayList<String> classes = new ArrayList<String>();
-                    subjects = (ArrayList<String>) session.getAttribute("subject");
-                    classes = (ArrayList<String>) session.getAttribute("class");
-            %>
+                            subjects = (ArrayList<String>) session.getAttribute("subject");
+                                classes = (ArrayList<String>) session.getAttribute("class");
+                                    %>
 
                                     <div class="div-center">
                                         <div id="nav-div" style="margin-bottom: 0em">
@@ -177,6 +171,7 @@
                                                                                 <% for(int i=0; i < classes.size();i++)
                                                                                     {%>
                                                                                     <option
+                                                                                    class="custom-options"
                                                                                         value="<%= classes.get(i)%>">
                                                                                         <%= classes.get(i)%>
                                                                                     </option>
@@ -199,6 +194,7 @@
                                                                                 <% for(int i=0; i < subjects.size();i++)
                                                                                     {%>
                                                                                     <option
+                                                                                    class="custom-options"
                                                                                         value="<%= subjects.get(i)%>">
                                                                                         <%= subjects.get(i)%>
                                                                                     </option>
@@ -209,11 +205,13 @@
                                                                     </div>
                                                                     <!-- !custom Topic -->
 
-                                                                    <div class="form-group col-md-6 d-none" id="customTopicCard">
-                                                                    
-                                                                        <input type="text" class="input-sm form-control" id="customTopic" placeholder="Custom Topic"
+                                                                    <div class="form-group col-md-6 d-none"
+                                                                        id="customTopicCard">
+
+                                                                        <input type="text" class="input-sm form-control"
+                                                                            id="customTopic" placeholder="Custom Topic"
                                                                             style="text-transform:uppercase" />
-                                                                    
+
                                                                     </div>
                                                                     <!-- ! Period number Radio buttons -->
                                                                     <div class="form-group col-md-6">
@@ -266,6 +264,16 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="form-group col-md-12">
+
+                                                                    <p class="text-muted">
+                                                                        ⓘ Please check Class and Subject before updating..!
+                                                                    </p>
+
+
+                                                                </div>
+
                                                             </div>
                                                             <button id="fetchButton" type="submit" style="
                     cursor: pointer;
@@ -282,7 +290,7 @@
 
                                         <div style="margin-top: 4em">
                                             <div class="d-none" id="updateReportCard">
-                                                <h3 id="updateReport"></h3>
+                                                <h4 id="updateReport" class="font-weight-bold"></h4>
                                             </div>
                                         </div>
                                     </div>

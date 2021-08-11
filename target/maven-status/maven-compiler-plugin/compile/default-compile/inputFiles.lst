@@ -1,7 +1,8 @@
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/facultyHomeAttendanceUpdate.java
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/facultyHomeAttendanceFetch.java
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/playGround.java
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/loginAuth.java
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/getFacultyDetails.java
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/logout.java
-/home/mohanvaddi/Github/Projects AMS/AMS/ams/src/main/java/com/ams/fetchStudentAttendanceStudentHome.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/adminHomeFetch.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/loginAuth.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/fetchStudentAttendanceStudentHome.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/getsubjectsAdminFetch.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/logout.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/facultyHomeAttendanceUpdate.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/playGround.java
+/home/mohanvaddi/Github/Project AMS/AMS/ams/src/main/java/com/ams/facultyHomeAttendanceFetch.java

@@ -50,7 +50,6 @@ $(document).ready(function () {
         else {
             subject = $('#subject').val();
         }
-        console.log($('#subject').val());
 
         var fromDateMillis = moment(fromDate, 'YYYY-MM-DD').valueOf();
         var toDateMillis = moment(toDate, 'YYYY-MM-DD').valueOf();
