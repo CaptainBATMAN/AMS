@@ -2,7 +2,11 @@ com/ams/getsubjectsAdminFetch.class
 com/ams/adminHomeFetch.class
 com/ams/fetchStudentAttendanceStudentHome.class
 com/ams/logout.class
+com/ams/createClassDatabase.class
+com/ams/createFacultyAccount.class
+com/ams/getDBList.class
 com/ams/playGround.class
 com/ams/facultyHomeAttendanceFetch.class
 com/ams/loginAuth.class
 com/ams/facultyHomeAttendanceUpdate.class
+com/ams/createStudentAccount.class

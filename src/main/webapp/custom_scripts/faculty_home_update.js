@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-        $('.div-center').css("max-width", "100%");
-    }
+    var colorList = ['#7D1935', '#11052C', '#170055', '#012443', '#2D2424', '#000000', '#003638']
+    var colorRand = Math.floor(Math.random() * 7);
+    $('nav').css('background-color', colorList[colorRand]);
+    $('th').css('background-color', colorList[colorRand]);
+    $('th').addClass('text-white');
 
     var currentDate = new Date();
     initDates("date", currentDate);
@@ -30,7 +31,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#fetchButton').click(function () {
+    $('#updateBtn').click(function () {
 
         if (!$("#updateReportCard").hasClass("d-none")) {
             $("#updateReportCard").addClass("d-none");

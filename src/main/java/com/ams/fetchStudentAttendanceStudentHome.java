@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -31,9 +32,7 @@ import org.bson.json.JsonMode;
 
 import static com.mongodb.client.model.Filters.*;
 
-
 public class fetchStudentAttendanceStudentHome extends HttpServlet {
-
 
     public fetchStudentAttendanceStudentHome() {
         super();
@@ -48,18 +47,25 @@ public class fetchStudentAttendanceStudentHome extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        
+
         String date = request.getParameter("Date");
-        String className = (String) session.getAttribute("class");        
+        String className = (String) session.getAttribute("class");
         String dbName = className.toLowerCase().replace("-", "_");
         String collectionName = dbName + "_" + date.replace("-", "_");
+
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
+
+        // ConnectionString connectionString = new
+        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+        // MongoClientSettings settings =
+        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
+        // MongoClient mongoClient = MongoClients.create(settings);
         MongoDatabase database = mongoClient.getDatabase(dbName);
         MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
-        Bson filter = and(eq("Participant_Email", session.getAttribute("user")), eq("PeriodWiseModified",true));
-        Bson projection = Projections.fields(Projections.include("P1","P2", "P3", "Meeting_ID"),
+        Bson filter = and(eq("Participant_Email", session.getAttribute("user")), eq("PeriodWiseModified", true));
+        Bson projection = Projections.fields(Projections.include("P1", "P2", "P3", "Meeting_ID"),
                 Projections.excludeId());
 
         MongoCursor<org.bson.Document> cursor = collection.find(filter).projection(projection).cursor();

@@ -13,7 +13,7 @@
             <script src="../imported/moment.js"></script>
 
             <!-- ! Custom styles and scripts -->
-            <link rel="stylesheet" href="../custom_styles/customStyles.css" />
+            <link rel="stylesheet" href="../custom_styles/facultyHome.css" />
             <script src="../custom_scripts/faculty_home_update.js"></script>
 
             <!-- ! BootStrap css and js -->
@@ -45,255 +45,164 @@
                                 classes = (ArrayList<String>) session.getAttribute("class");
                                     %>
 
-                                    <div class="div-center">
-                                        <div id="nav-div" style="margin-bottom: 0em">
-                                            <nav class="
-            navbar
-            sticky-top
-            navbar-expand-lg navbar-dark
-            bg-dark
-            font-poppins
-          " style="position: relative">
-                                                <a class="navbar-brand p-0" href="./facultyHomeUpdate.jsp">AMS</a>
-                                                <a class="navbar-toggler" type="button" data-toggle="collapse"
-                                                    data-target="#navbarNav" aria-controls="navbarNav"
-                                                    aria-expanded="false" aria-label="Toggle navigation">
-                                                    <span id="toggle-button" class="navbar-toggler-icon"></span>
-                                                </a>
-                                                <div class="navbar-collapse collapse" id="navbarNav">
-                                                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="./facultyHomeFetch.jsp">View</a>
-                                                        </li>
-                                                        <li class="nav-item active">
-                                                            <a class="nav-link" style="color: #28a745 !important;"
-                                                                href="./facultyHomeUpdate.jsp">Update</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <form action="../logout" method="POST">
-                                                                <button type="submit" id="logOutBtn"
-                                                                    class="btn btn-danger btn-sm" href="#" style="
-                      position: absolute;
-                      right: 10px;
-                      margin: auto 0;
-                      bottom: 15px;
-                    ">
-                                                                    LogOut
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </nav>
-                                        </div>
+    <div id="nav-div">
+        <nav class="p-1 navbar sticky-top navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-dark"
+            style="position: relative">
+                <a class="navbar-brand p-0" href="#">Gmeet AMS</a>
+                <button class="p-2 navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mt-sm-0 my-10">
+                    <li class="nav-item text-white mr-4" style="text-decoration: none;">
+                        <a class="nav-link active" href="./facultyHomeFetch.jsp">View</a>
+                    </li>
+                    <li class="nav-item my-auto">
+                        <form action="../logout" method="POST">
+                            <button type="submit" id="logOutBtn"
+                                class="btn btn-danger btn-sm m-0 m-auto"
+                                style="border-radius: 4px" href="#">
+                                <i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
-                                        <div id="infoCard" style="width: 40%; margin: 2em auto" class="d-none">
-                                            <div class="card border-dark">
-                                                <div class="card-header bg-dark p-1">category:formatters jsp
-                                                    <h6 class="modal-title text-white font-weight-bold m-0">Info</h6>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h6 style="padding: 0" class="text-danger">
-                                                        Please follow the below instructions:
-                                                    </h6>
-                                                    <p class="text-dark">
-                                                        1. All fields are required to update the Student Data in the
-                                                        DataBase. <br />
-                                                        2.Please check the details once again before submitting the
-                                                        data.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+     <!-- Page Content -->
+     <div id="page-content-wrapper">
+    
+    <div class="container-fluid">
+        <div id="view-attendance" class="">
+            <h3>Update Attendance Data</h3>
+            <div class="form-group row">
+                <!-- ! Date -->
+                <div class="col-lg-6 col-md-6">
+                    <label for="date" class="p-0 col-form-label"> <span class="font-weight-bolder">Date:</span>
+                    </label>
+                    <input type="text" class="input-sm form-control form-control-sm" id="date" />
+                </div>
+                <!-- ! gmeetcode -->
+                <div class="col-lg-6 col-md-6">
+                    <label for="gmeetcode" class="p-0 col-form-label"> <span class="font-weight-bolder">Google
+                            MEET Code:</span>
+                    </label>
+                    <input id="gmeetcode" class="input-sm form-control form-control-sm" type="text" maxlength="10"
+                        name="gmeetcode" style="text-transform:uppercase" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- ! from time -->
+                <div class="col-lg-6 col-md-6">
+                    <label for="fromTime" class="p-0 col-form-label"> <span class="font-weight-bolder">From
+                            Time:</span>
+                    </label>
+                    <input type="time" class="input-sm form-control form-control-sm" id="fromTime" />
 
+                </div>
+                <!-- ! to time -->
+                <div class="col-lg-6 col-md-6">
+                    <label for="toTime" class="p-0 col-form-label"> <span class="font-weight-bolder">To
+                            Time:</span>
+                    </label>
+                    <input type="time" class="input-sm form-control form-control-sm" id="toTime" />
 
-                                        <div class="container">
-                                            <div class="d-flex row justify-content-center">
-                                                <div class="col-12 col-lg-10 mt-2">
-                                                    <div class="card border-dark">
-                                                        <div class="card-header bg-dark p-1">
-                                                            <h6 class="modal-title text-white font-weight-bold m-0">
-                                                                Update Attendance Reports
-                                                            </h6>
-                                                        </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- ! class -->
+                <div class="col-lg-6 col-md-6" style="margin-top: 10px;">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text text-dark" for="class">Class:</label>
+                        </div>
+                        <select name="class" class="custom-select" id="class">
+                            <% for(int i=0; i < classes.size();i++) {%>
+                                <option class="custom-options" value="<%= classes.get(i)%>"><%= classes.get(i)%></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                <!-- ! subject -->
+                <div id="subjectCard" class="col-lg-6 col-md-6" style="margin-top: 10px;">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text text-dark" for="subject">Subject :</label>
+                        </div>
+                        <select name="subject" class="custom-select" id="subject">
+                            <% for(int i=0; i < subjects.size();i++) {%><option class="custom-options" value="<%= subjects.get(i)%>">
+                                <%= subjects.get(i)%></option>
+                            <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                <!-- ! custom topic  -->
+                <div id="customTopicCard" class="col-lg-6 col-md-64 d-none" style="margin-top: 10px;">
+                    <input type="text" class="input-sm form-control" id="customTopic" placeholder="Custom Topic"
+                        style="text-transform:uppercase" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- ! custom topic checkbox -->
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-check">
+                        <input name="customTopicCheck" class="form-check-input" type="checkbox" value=""
+                            id="customTopicCheck">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Custom Topic
+                        </label>
+                    </div>
+                </div>
+            </div>
+        <!-- ! periods -->
+        <div class="form-group row">
+            <div class="form-check">
+                <label for="period" style="margin-right: 30px; margin-left: 15px">Period
+                    :
+                </label>
+                <input class="form-check-input" type="radio" name="period" id="exampleRadios1" value="P1" />
+                <label class="form-check-label" for="exampleRadios1">
+                    Period 1
+                </label>
+            </div>
+            <div class="form-check" style="margin-left: 15px">
+                <input class="form-check-input" type="radio" name="period" id="exampleRadios2" value="P2" />
+                <label class="form-check-label" for="exampleRadios2">
+                    Period 2
+                </label>
+            </div>
+            <div class="form-check" style="margin-left: 15px">
+                <input class="form-check-input" type="radio" name="period" id="exampleRadios3" value="P3" />
+                <label class="form-check-label" for="exampleRadios3">
+                    Period 3
+                </label>
+            </div>
+        </div>
+        <!-- ! info  -->
+        <div class="form-group row">
+            <div class="col-lg-12">
+                <p class="text-muted">
+                    <span class="fa fa-info"></span>&nbsp;&nbsp;&nbsp;Please check Class and Subject before
+                    updating..!
+                </p>
+            </div>
+        </div>
+        <button id="updateBtn" type="submit" style="cursor: pointer" class="btn btn-sm btn-outline-success">
+            Update
+        </button>
+    </div>
+    <div id="attendanceReports" style="margin-top: 3.5em;">
+        <div style="margin-top: 4em">
+            <div class="" id="updateReportCard">
+                <h4 id="updateReport" class="font-weight-bold"></h4>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
 
-                                                        <div class="card-body" style="width: 100%; margin: 0 auto">
-                                                            <div class="form-group">
-                                                                <div class="form-row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <p class="font-weight-bolder">
-                                                                            Date:
-                                                                            <input type="text"
-                                                                                class="input-sm form-control"
-                                                                                id="date" />
-                                                                        </p>
-                                                                    </div>
-                                                                    <!-- ! Google meet code -->
-                                                                    <div class="form-group col-md-6">
-                                                                        <p class="font-weight-bolder">
-                                                                            Google Meet Code :
-                                                                            <input id="gmeetcode"
-                                                                                class="input-sm form-control"
-                                                                                type="text" maxlength="10"
-                                                                                name="gmeetcode"
-                                                                                style="text-transform:uppercase" />
-                                                                        </p>
-                                                                    </div>
-                                                                    <!-- ! from time -->
-                                                                    <div class="form-group col-md-6">
-                                                                        <p class="font-weight-bolder">
-                                                                            From Time:
-                                                                            <input type="time"
-                                                                                class="input-sm form-control"
-                                                                                id="fromTime" />
-                                                                        </p>
-                                                                    </div>
-                                                                    <!-- ! to time -->
-                                                                    <div class="form-group col-md-6">
-                                                                        <p class="font-weight-bolder">
-                                                                            To Time:
-                                                                            <input type="time"
-                                                                                class="input-sm form-control"
-                                                                                id="toTime" />
-                                                                        </p>
-                                                                    </div>
-                                                                    <!-- ! class -->
-                                                                    <div class="form-group col-md-6">
-                                                                        <div class="input-group">
-                                                                            <div class="input-group-prepend">
-                                                                                <label
-                                                                                    class="input-group-text text-dark"
-                                                                                    for="class">Class:</label>
-                                                                            </div>
-                                                                            <select name="class" class="custom-select"
-                                                                                id="class">
-
-                                                                                <% for(int i=0; i < classes.size();i++)
-                                                                                    {%>
-                                                                                    <option
-                                                                                    class="custom-options"
-                                                                                        value="<%= classes.get(i)%>">
-                                                                                        <%= classes.get(i)%>
-                                                                                    </option>
-                                                                                    <% } %>
-
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- !subject -->
-                                                                    <div class="form-group col-md-6" id="subjectCard">
-                                                                        <div class="input-group">
-                                                                            <div class="input-group-prepend">
-                                                                                <label
-                                                                                    class="input-group-text text-dark"
-                                                                                    for="subject">Subject :</label>
-                                                                            </div>
-                                                                            <select name="subject" class="custom-select"
-                                                                                id="subject">
-
-                                                                                <% for(int i=0; i < subjects.size();i++)
-                                                                                    {%>
-                                                                                    <option
-                                                                                    class="custom-options"
-                                                                                        value="<%= subjects.get(i)%>">
-                                                                                        <%= subjects.get(i)%>
-                                                                                    </option>
-                                                                                    <% } %>
-                                                                                        <% } %>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- !custom Topic -->
-
-                                                                    <div class="form-group col-md-6 d-none"
-                                                                        id="customTopicCard">
-
-                                                                        <input type="text" class="input-sm form-control"
-                                                                            id="customTopic" placeholder="Custom Topic"
-                                                                            style="text-transform:uppercase" />
-
-                                                                    </div>
-                                                                    <!-- ! Period number Radio buttons -->
-                                                                    <div class="form-group col-md-6">
-                                                                        <div class="form-group" style="margin-left: 0">
-                                                                            <div class="form-check">
-                                                                                <label for="period"
-                                                                                    style="margin-right: 30px; margin-left: 15px">Period
-                                                                                    :
-                                                                                </label>
-                                                                                <input class="form-check-input"
-                                                                                    type="radio" name="period"
-                                                                                    id="exampleRadios1" value="P1" />
-                                                                                <label class="form-check-label"
-                                                                                    for="exampleRadios1">
-                                                                                    Period 1
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="form-check"
-                                                                                style="margin-left: 15px">
-                                                                                <input class="form-check-input"
-                                                                                    type="radio" name="period"
-                                                                                    id="exampleRadios2" value="P2" />
-                                                                                <label class="form-check-label"
-                                                                                    for="exampleRadios2">
-                                                                                    Period 2
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="form-check"
-                                                                                style="margin-left: 15px">
-                                                                                <input class="form-check-input"
-                                                                                    type="radio" name="period"
-                                                                                    id="exampleRadios3" value="P3" />
-                                                                                <label class="form-check-label"
-                                                                                    for="exampleRadios3">
-                                                                                    Period 3
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group col-md-6">
-                                                                        <div class="form-check">
-                                                                            <input name="customTopicCheck"
-                                                                                class="form-check-input" type="checkbox"
-                                                                                value="" id="customTopicCheck">
-                                                                            <label class="form-check-label"
-                                                                                for="flexCheckDefault">
-                                                                                Custom Topic
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="form-group col-md-12">
-
-                                                                    <p class="text-muted">
-                                                                        ⓘ Please check Class and Subject before updating..!
-                                                                    </p>
-
-
-                                                                </div>
-
-                                                            </div>
-                                                            <button id="fetchButton" type="submit" style="
-                    cursor: pointer;
-                    margin-left: 1.2em;
-                    margin-top: -1.5em;
-                  " class="btn btn-success btn-sm">
-                                                                Update
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div style="margin-top: 4em">
-                                            <div class="d-none" id="updateReportCard">
-                                                <h4 id="updateReport" class="font-weight-bold"></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-        </body>
-
-        </html>
+    </body>
+</html>

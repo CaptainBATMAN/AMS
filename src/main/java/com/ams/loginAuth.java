@@ -19,6 +19,7 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
 import com.mongodb.DBObject;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -32,60 +33,6 @@ import org.bson.conversions.Bson;
 
 public class loginAuth extends HttpServlet {
 
-    // public static void main(String[] args) {
-    // String loginId = "test@faculty.ac.in";
-    // String pwd = "dasd";
-
-    // ConnectionString connectionString = new
-    // ConnectionString("mongodb://127.0.0.1:27017");
-    // MongoClient mongoClient = MongoClients.create(connectionString);
-    // MongoDatabase database = mongoClient.getDatabase("university");
-    // MongoCollection<org.bson.Document> collection =
-    // database.getCollection("users");
-
-    // Bson filter = eq("email", loginId);
-    // Bson projection = Projections.fields(Projections.include("email", "password",
-    // "user_role"),
-    // Projections.excludeId());
-
-    // String FetchedEmail = null;
-    // String FetchedPassword = null;
-    // String FetchedUser_role = null;
-    // String redirectURL = "login.jsp";
-    // MongoCursor<org.bson.Document> cursor =
-    // collection.find(filter).projection(projection).cursor();
-    // try {
-    // while (cursor.hasNext()) {
-    // org.bson.Document data = cursor.next();
-    // FetchedEmail = data.getString("email");
-    // System.out.println(FetchedEmail);
-    // FetchedPassword = data.getString("password");
-    // System.out.println(FetchedPassword);
-
-    // FetchedUser_role = data.getString("user_role");
-    // System.out.println(FetchedUser_role);
-
-    // }
-    // } finally {
-
-    // cursor.close();
-    // if (FetchedEmail == null && FetchedPassword == null && FetchedUser_role ==
-    // null) {
-    // System.out.println("bruh");
-    // }
-    // if (loginId.equals(FetchedEmail) && pwd.equals(FetchedPassword)) {
-    // if (FetchedUser_role.equals("student")) {
-    // System.out.println("ikkadiki ela vacchav");
-
-    // } else if (FetchedUser_role.equals("faculty")) {
-    // System.out.println("ikkadiki ela vacchav 2");
-
-    // }
-    // }
-
-    // }
-    // }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -94,6 +41,13 @@ public class loginAuth extends HttpServlet {
 
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
+
+        // ConnectionString connectionString = new
+        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+        // MongoClientSettings settings =
+        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
+        // MongoClient mongoClient = MongoClients.create(settings);
+
         MongoDatabase database = mongoClient.getDatabase("users");
 
         MongoCollection<org.bson.Document> collection = database.getCollection("faculty");

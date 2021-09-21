@@ -1,0 +1,164 @@
+@import './../imported/Montserrat.css';
+
+body {
+  overflow-x: hidden;
+  color: #fff;
+}
+small {
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.toggle-password {
+  cursor: pointer;
+  float: right;
+  margin-right: 10px;
+  margin-top: -25px;
+}
+
+nav {
+  background-color: #170055;
+}
+
+@media (max-width: 1200px) {
+  #menu-toggle{
+    position: absolute;
+    right: 10px;
+    top:10px;
+  }
+}
+
+.collectionName{
+    list-style-type: none;
+}
+
+.databaseName{
+    list-style-type: none;
+}
+
+.list-group{
+    margin-bottom: 20px !important; 
+}
+
+
+/* Toggle Styles */
+
+#wrapper {
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  padding-left: 0;
+ 
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  background-color: #170055;
+  height: 100%;
+  left: 250px;
+  margin-left: -250px;
+  overflow-y: auto;
+  position: fixed;
+  transition: all 0.5s ease;
+  width: 0;
+  z-index: 1000;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  padding: 15px;
+  position: absolute;
+  width: 80%;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  margin-right: -250px;
+  position: absolute;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 250px;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+  text-indent: 20px;
+}
+
+.sidebar-nav li a {
+  color: rgb(255, 255, 255);
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  font-size: 18px;
+  height: 65px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  background: none;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  
+  #wrapper {
+    padding-left: 250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 0;
+  }
+
+  #sidebar-wrapper {
+    width: 250px;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    width: 0;
+  }
+
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    margin-right: 0;
+    position: relative;
+  }
+}

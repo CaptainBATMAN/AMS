@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -60,10 +61,9 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
         String className = request.getParameter("className");
         String meetingID = request.getParameter("Meeting_ID");
         String period = request.getParameter("period");
-        
+
         String fromTime = fromTimeShort + ":00";
         String toTime = toTimeShort + ":00";
-
 
         HttpSession session = request.getSession();
 
@@ -88,6 +88,11 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
         // ! Creating Database client.
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
+        // ConnectionString connectionString = new
+        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+        // MongoClientSettings settings =
+        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
+        // MongoClient mongoClient = MongoClients.create(settings);
 
         // ! connecting to class DB and getting email list from class_section_students
         String dbName = className.toLowerCase().replace("-", "_");
@@ -119,7 +124,6 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
             MongoDatabase database = mongoClient.getDatabase("university");
             MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
-
             for (String email : studentEmailArray) {
 
                 // ! filter to get all the entries for the given meeting Id and email
@@ -142,7 +146,7 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
                         Date studentStartTime = simpleDateFormat.parse(studentData.getString("Start_Time"));
                         Date studentEndTime = simpleDateFormat.parse(studentData.getString("End_Time"));
 
-                        // ! Case-1 if student was already logged in before the class started..
+                        // ! Case-1 if student was already present in before the class started..
                         if ((studentStartTime.getTime() <= classStartTime.getTime())
                                 && ((studentEndTime.getTime() >= classStartTime.getTime()
                                         && studentEndTime.getTime() <= classEndTime.getTime()))) {
@@ -186,30 +190,30 @@ public class facultyHomeAttendanceUpdate extends HttpServlet {
                     subJsonObject.put("Class_Timings", classTimings);
                     subJsonObject.put("Subject", subject);
                     subJsonObject.put("Duration", totalDurationOfStudent);
-                    subJsonObject.put("Modified_by",session.getAttribute("user") );
+                    subJsonObject.put("Modified_by", session.getAttribute("user"));
 
                     // ! db and collection to insert modified data
                     String modifiedCollectionName = dbName + "_" + date.replace("-", "_");
                     boolean collectionExists = mongoClient.getDatabase(dbName).listCollectionNames()
-                    .into(new ArrayList<String>()).contains(modifiedCollectionName);
+                            .into(new ArrayList<String>()).contains(modifiedCollectionName);
                     if (collectionExists == false) {
                         modifiedDatabase.createCollection(modifiedCollectionName);
-                        
                     }
-                    MongoCollection<org.bson.Document> modifiedCollection = modifiedDatabase.getCollection(modifiedCollectionName);
+                    MongoCollection<org.bson.Document> modifiedCollection = modifiedDatabase
+                            .getCollection(modifiedCollectionName);
                     System.out.println("acquired collection");
-                    
+
                     // ! To check if the PeriodWiseModified document exist in the DB..
-                    Bson pwmFilter = and(eq("Participant_Email", email),
-                    eq("PeriodWiseModified", true));
+                    Bson pwmFilter = and(eq("Participant_Email", email), eq("PeriodWiseModified", true));
                     long pwmCount = modifiedCollection.countDocuments(pwmFilter);
-                    if (pwmCount == 1) {                        
+                    if (pwmCount == 1) {
                         Bson periodUpdate = Updates.set(period, subJsonObject);
                         UpdateOptions options = new UpdateOptions().upsert(true);
                         modifiedCollection.updateOne(pwmFilter, periodUpdate, options);
-                        
-                    } else {                        
-                        Document document = new Document("Participant_Email", email).append("PeriodWiseModified", true).append(period, subJsonObject);
+
+                    } else {
+                        Document document = new Document("Participant_Email", email).append("PeriodWiseModified", true)
+                                .append(period, subJsonObject);
                         modifiedCollection.insertOne(document);
                     }
                     studentCursor.close();

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.json.*;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -36,38 +37,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class getsubjectsAdminFetch extends HttpServlet {
-    // public static void main(String[] args) {
-    //     String className = "CSE-1B";
-    //     // ! Connecting to MongoDB server on port 27017..
-    //     ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
-    //     MongoClient mongoClient = MongoClients.create(connectionString);
-
-    //     // ! getting subjectList from class_section_subjects
-    //     String subjectDbName = className.toLowerCase().replace("-", "_");
-    //     MongoDatabase subjectDatabase = mongoClient.getDatabase(subjectDbName);
-    //     MongoCollection<org.bson.Document> subjectsCollection = subjectDatabase
-    //             .getCollection(subjectDbName + "_subjects");
-    //     Bson subjectListFilter = eq("subjectList", true);
-    //     Bson subjectListProjection = Projections.fields(Projections.include("subjects"), Projections.excludeId());
-    //     MongoCursor<org.bson.Document> subjectCursor = subjectsCollection.find(subjectListFilter)
-    //             .projection(subjectListProjection).cursor();
-    //     long subjectCount = subjectsCollection.countDocuments(subjectListFilter);
-
-    //     if (subjectCount > 0) {
-
-    //         ArrayList<String> subjectArray = new ArrayList<String>();
-    //         try {
-    //             while (subjectCursor.hasNext()) {
-    //                 subjectArray = (ArrayList<String>) subjectCursor.next().get("subjects");
-    //             }
-    //             subjectCursor.close();
-    //         } finally {
-    //             System.out.println(subjectArray);
-    //         }
-    //     } else {
-    //         System.out.println("error");
-    //     }
-    // }
 
     public getsubjectsAdminFetch() {
         super();
@@ -85,6 +54,11 @@ public class getsubjectsAdminFetch extends HttpServlet {
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
 
+        // ConnectionString connectionString = new
+        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+        // MongoClientSettings settings =
+        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
+        // MongoClient mongoClient = MongoClients.create(settings);
         // ! getting subjectList from class_section_subjects
         String subjectDbName = className.toLowerCase().replace("-", "_");
         MongoDatabase subjectDatabase = mongoClient.getDatabase(subjectDbName);
@@ -104,8 +78,8 @@ public class getsubjectsAdminFetch extends HttpServlet {
                     subjectArray = (ArrayList<String>) subjectCursor.next().get("subjects");
                 }
                 subjectCursor.close();
-                
-                for(String subject : subjectArray){
+
+                for (String subject : subjectArray) {
                     array.add(subject);
                 }
             } finally {
@@ -115,8 +89,7 @@ public class getsubjectsAdminFetch extends HttpServlet {
                 out.print(array);
                 out.flush();
             }
-        }
-        else{
+        } else {
             JSONObject failure = new JSONObject();
             failure.put("msg", "No subject list found..");
             PrintWriter out = response.getWriter();

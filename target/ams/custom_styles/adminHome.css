@@ -1,0 +1,55 @@
+@import './../imported/Montserrat.css';
+
+body {
+    overflow-x: hidden;
+    color: #fff;
+  }
+  small {
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  
+  
+  .navbar-brand{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 23px;
+  }
+
+  #view-attendance > h3{
+    color: black !important;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 23px;
+    padding: 1% 0% 2% 0;
+    margin: 0;
+  }
+
+  #page-content-wrapper {
+    width: 100%;
+    margin: 0 auto;
+  }
+  #view-attendance {
+    width: 60% ;
+    margin: 0 auto;
+  }
+  
+  #attendanceReports {
+    width: 80%;
+    margin: 0 auto;
+  }
+  nav {
+    background-color: #170055;
+  }
+  
+  @media (max-width: 900px) {
+    #view-attendance {
+      width: 100%;
+    }
+    #attendanceReports {
+      width: 100%;
+    }
+  }
+  
+  /* Toggle Styles */
+  

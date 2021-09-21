@@ -1,9 +1,9 @@
 $(document).ready(function () {
-
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-        $('.div-center').css("max-width", "100%");
-    }
+    var colorList = ['#7D1935', '#11052C', '#170055', '#012443', '#2D2424', '#000000', '#003638']
+    var colorRand = Math.floor(Math.random() * 7);
+    $('nav').css('background-color', colorList[colorRand]);
+    $('th').css('background-color', colorList[colorRand]);
+    $('th').addClass('text-white');
 
     var currentDate = new Date();
     initDates("fromDate", currentDate);
@@ -103,29 +103,29 @@ $(document).ready(function () {
                         $('#attendanceReportsCard').removeClass('d-none');
                         $('#renderAttendanceReports').removeClass('d-none');
 
-                        
+
 
                         for (let i = 0; i < mainAttendanceData.length; i++) {
-                            
-                            
+
+
                             var date = mainAttendanceData[i].date;
-                            
+
                             var P1 = "<span class='text-danger'>No Data</span>";
                             var P2 = "<span class='text-danger'>No Data</span>";
                             var P3 = "<span class='text-danger'>No Data</span>";
 
-                            
-                            
-                            if(!(mainAttendanceData[i].P1 === null)){
-                                P1 = mainAttendanceData[i].P1.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P1.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P1.Duration;
+
+
+                            if (!(mainAttendanceData[i].P1 === null)) {
+                                P1 = mainAttendanceData[i].P1.Subject + "<span>&nbsp;&nbsp;&nbsp;</span>" + mainAttendanceData[i].P1.Class_Timings + "&nbsp;<br>" + "Duration: " + mainAttendanceData[i].P1.Duration+" ";
                                 P1 = P1 + ((mainAttendanceData[i].P1.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
                             }
-                            if(!(mainAttendanceData[i].P2 === null)){
-                                P2 = mainAttendanceData[i].P2.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P2.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P2.Duration;
+                            if (!(mainAttendanceData[i].P2 === null)) {
+                                P2 = mainAttendanceData[i].P2.Subject + "<span>&nbsp;&nbsp;&nbsp;</span>" + mainAttendanceData[i].P2.Class_Timings + "&nbsp;<br>" + "Duration: " + mainAttendanceData[i].P2.Duration+" ";
                                 P2 = P2 + ((mainAttendanceData[i].P2.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
                             }
-                            if(!(mainAttendanceData[i].P3 === null)){
-                                P3 = mainAttendanceData[i].P3.Subject + "<span>&nbsp&nbsp&nbsp</span>" + mainAttendanceData[i].P3.Class_Timings + "<br>" + "Duration: " + mainAttendanceData[i].P3.Duration;
+                            if (!(mainAttendanceData[i].P3 === null)) {
+                                P3 = mainAttendanceData[i].P3.Subject + "<span>&nbsp;&nbsp;&nbsp;</span>" + mainAttendanceData[i].P3.Class_Timings + "&nbsp;<br>" + "Duration: " + mainAttendanceData[i].P3.Duration+" ";
                                 P3 = P3 + ((mainAttendanceData[i].P3.Duration > 0) ? "<br><span class='text-success'>P</span>" : "<br><span class='text-danger'>A</span>");
                             }
 
@@ -139,7 +139,7 @@ $(document).ready(function () {
                             finalMainAttendanceData.push(finalMainAttendanceDataArrayObj);
                         }
                     }
-                    if(finalMainAttendanceData.length){
+                    if (finalMainAttendanceData.length) {
                         renderTable(finalMainAttendanceData);
                     }
                 }
@@ -170,7 +170,13 @@ $(document).ready(function () {
                         { "data": "P1" },
                         { "data": "P2" },
                         { "data": "P3" }
-                    ]
+                    ],
+                    "buttons": [{
+                        extend: 'print',
+                        text: 'Print Data',
+                        title: '',
+                        className: "btn btn-primary bg-outline-primary btn-sm m-1",
+                    }]
                 });
                 counter += 1;
             }

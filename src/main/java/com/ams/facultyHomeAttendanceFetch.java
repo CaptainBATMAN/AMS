@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -57,18 +58,24 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
 
         String dbName = className.toLowerCase().replace("-", "_");
         String collectionName = dbName + "_" + date.replace("-", "_");
+
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
+        // ConnectionString connectionString = new
+        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+        // MongoClientSettings settings =
+        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
+        // MongoClient mongoClient = MongoClients.create(settings);
         MongoDatabase database = mongoClient.getDatabase(dbName);
         MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
         // * filtering data and fields needed.
         Bson newFilter;
         newFilter = and(eq("PeriodWiseModified", true));
-        Bson projection = Projections.fields(Projections.include("Participant_Email", "Meeting_ID", "P1", "P2", "P3","Duration","Class","Subject"),
-                Projections.excludeId());
+        Bson projection = Projections.fields(Projections.include("Participant_Email", "Meeting_ID", "P1", "P2", "P3",
+                "Duration", "Class", "Subject"), Projections.excludeId());
 
-                MongoCursor<org.bson.Document> cursor = collection.find(newFilter).projection(projection).cursor();
+        MongoCursor<org.bson.Document> cursor = collection.find(newFilter).projection(projection).cursor();
         org.bson.Document data = null;
         JSONArray array = new JSONArray();
 
@@ -87,7 +94,6 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
                 p1Count = collection.countDocuments(p1Filter);
                 p2Count = collection.countDocuments(p2Filter);
                 p3Count = collection.countDocuments(p3Filter);
-
 
                 if (p1Count > 0) {
                     jsonObject.put("Participant_Email", data.getString("Participant_Email"));

@@ -1,0 +1,87 @@
+@import './../imported/Montserrat.css';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #F3F1F5;
+}
+
+.box {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    padding: 40px 30px;
+    /* background: rgba(0, 0, 0, .8); */
+    box-sizing: border-box;
+    /* box-shadow: 0 15px 25px rgba(0   , 0, 0, .5); */
+    border-radius: 10px;
+    /* border: #031e2b solid 1px; */
+    margin-top: 1em;
+}
+
+.box h2 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 40px;
+    padding: 0;
+    color: #031e2b;
+    text-align: center;
+}
+
+.box .inputBox {
+    position: relative;
+}
+
+.box .inputBox input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: rgb(3, 38, 60);
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #031e2b;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.box .inputBox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #0e4c6a;
+    pointer-events: none;
+    transition: .2s;
+}
+
+.box .inputBox input:focus~label,
+.box .inputBox input:valid~label {
+    top: -18px;
+    left: 0;
+    color: #0a5d5d;
+    font-size: 12px;
+}
+
+.box input[type="submit"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #031e2b;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+}
+
+.box input[type="password"] {
+    margin-bottom: 50px;
+}
+

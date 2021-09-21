@@ -17,7 +17,6 @@ public class logout extends HttpServlet {
         }
         if (session.getAttribute("role").equals("student")) {
             session.removeAttribute("name");
-
         }
         session.removeAttribute("class");
         session.removeAttribute("role");

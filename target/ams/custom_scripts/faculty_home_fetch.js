@@ -1,9 +1,10 @@
 $(document).ready(function () {
+    var colorList = ['#7D1935', '#11052C', '#170055', '#012443', '#2D2424', '#000000', '#003638']
+    var colorRand = Math.floor(Math.random() * 7);
+    $('nav').css('background-color', colorList[colorRand]);
+    $('th').css('background-color', colorList[colorRand]);
+    $('th').addClass('text-white');
 
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-        $('.div-center').css("max-width", "100%");
-    }
     var currentDate = new Date();
     initDates("fromDate", currentDate);
     initDates("toDate", currentDate);
@@ -245,10 +246,10 @@ $(document).ready(function () {
         <table id='attendanceReportsTable' class='table table-bordered text-center table-condensed table-hover no-footer' style='width: 100%; margin: 0 auto'>\
             <thead>\
                 <tr>\
-                    <th>Email</th>";
+                    <th style='background-color:"+colorList[colorRand]+";' class='text-white' >Email</th>";
 
                         for (let i = 0; i < availableDates.length; i++) {
-                            tableStr += "<th title='" + availableDates[i] + "'>" + availableDates[i] + "</th>";
+                            tableStr += "<th style='background-color:"+colorList[colorRand]+";' class='text-white' title='" + availableDates[i] + "'>" + availableDates[i] + "</th>";
                         }
 
                         tableStr += "</tr>\

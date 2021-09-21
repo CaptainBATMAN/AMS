@@ -74,5 +74,47 @@
   <url-pattern>/getsubjectsAdminFetch</url-pattern>
 </servlet-mapping>
 
+
+<servlet>
+  <servlet-name>getDBList</servlet-name>
+  <servlet-class>com.ams.getDBList</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>getDBList</servlet-name>
+  <url-pattern>/getDBList</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>createStudentAccount</servlet-name>
+  <servlet-class>com.ams.createStudentAccount</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>createStudentAccount</servlet-name>
+  <url-pattern>/createStudentAccount</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>createFacultyAccount</servlet-name>
+  <servlet-class>com.ams.createFacultyAccount</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>createFacultyAccount</servlet-name>
+  <url-pattern>/createFacultyAccount</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>createClassDatabase</servlet-name>
+  <servlet-class>com.ams.createClassDatabase</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>createClassDatabase</servlet-name>
+  <url-pattern>/createClassDatabase</url-pattern>
+</servlet-mapping>
+
+
 </web-app>
 

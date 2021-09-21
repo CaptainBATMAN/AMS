@@ -1,0 +1,61 @@
+@import './../imported/Montserrat.css';
+
+.navbar-brand {
+  font-family: "Montserrat", sans-serif;
+  font-size: 23px;
+}
+
+body {
+  overflow-x: hidden;
+  color: #fff;
+}
+small {
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.card {
+  border: none !important ;
+}
+.card-header {
+  border: none !important ;
+}
+#view-attendance > h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 23px;
+  padding: 1% 1% 2% 0;
+  margin: 0;
+}
+
+.nav-link {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+#page-content-wrapper {
+  width: 100%;
+  margin: 10px auto 0;
+}
+#view-attendance {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#attendanceReports {
+  width: 80%;
+  margin: 0 auto;
+}
+nav {
+  background-color: #170055;
+}
+
+@media (max-width: 1200px) {
+  #view-attendance {
+    width: 100%;
+  }
+  #attendanceReports {
+    width: 100%;
+  }
+}
+
+/* Toggle Styles */

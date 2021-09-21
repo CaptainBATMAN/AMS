@@ -1,9 +1,11 @@
 $(document).ready(function () {
 
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-        $('.div-center').css("max-width", "100%");
-    }
+    var colorList = ['#7D1935', '#11052C', '#170055', '#012443', '#2D2424', '#000000', '#003638']
+    var colorRand = Math.floor(Math.random() * 7);
+    $('nav').css('background-color', colorList[colorRand]);
+    $('#sidebar-wrapper').css('background-color', colorList[colorRand]);
+
+
     var currentDate = new Date();
     initDates("fromDate", currentDate);
     initDates("toDate", currentDate);
@@ -61,8 +63,6 @@ $(document).ready(function () {
 
 
     function renderAttendanceDataForRange(fromDateMillis, toDateMillis, className) {
-
-
         var subjects = [];
         subjectList();
         async function subjectList() {
@@ -121,18 +121,18 @@ $(document).ready(function () {
                     <table id='attendanceReportsTable' class='table table-bordered text-center table-condensed table-hover no-footer' style='width: 100%; margin: 0 auto'>\
                         <thead>\
                             <tr>\
-                                <th>Email</th>";
+                                <th style='background-color:"+colorList[colorRand]+";' class='text-white'>Email</th>";
 
                             var columns = [{ "data": "Student_Email" }];
 
                             for (let i = 0; i < subjects.length; i++) {
-                                tableStr += "<th title='" + subjects[i] + "'>" + subjects[i] + "</th>";
+                                tableStr += "<th style='background-color:"+colorList[colorRand]+";' class='text-white' title='" + subjects[i] + "'>" + subjects[i] + "</th>";
                                 columns.push({ "data": subjects[i] });
                             }
 
-                            tableStr += "<th title='" + "Classes Atttended" + "'>" + "Classes Attended" + "</th>";
-                            tableStr += "<th title='" + "Total Classes" + "'>" + "Total Classes" + "</th>";
-                            tableStr += "<th title='" + "Percentage" + "'>" + "Percentage" + "</th>";
+                            tableStr += "<th style='background-color:"+colorList[colorRand]+";' class='text-white' title='" + "Classes Atttended" + "'>" + "Classes Attended" + "</th>";
+                            tableStr += "<th style='background-color:"+colorList[colorRand]+";' class='text-white' title='" + "Total Classes" + "'>" + "Total Classes" + "</th>";
+                            tableStr += "<th style='background-color:"+colorList[colorRand]+";' class='text-white' title='" + "Percentage" + "'>" + "Percentage" + "</th>";
 
                             columns.push({ "data": "classesAttended" });
                             columns.push({ "data": "totalClasses" });
@@ -158,7 +158,7 @@ $(document).ready(function () {
                                     filename: "Attendance_" + className + "_" + $("#fromDate").val() + "_to_" + $("#toDate").val(),
                                     text: 'Download Excel',
                                     title: null,
-                                    messageTop: "Attendance Data for "+ className +", from "+$("#fromDate").val()+" to "+$("#toDate").val()+" downloaded on "+ new Date(),
+                                    messageTop: "Attendance Data for " + className + ", from " + $("#fromDate").val() + " to " + $("#toDate").val() + " downloaded on " + new Date(),
                                     className: "btn btn-primary bg-primary btn-sm m-1",
                                 }]
                             });
