@@ -3,10 +3,7 @@
 _This project is to help people in maintaining their Gmeet audit logs._
 
 
->####  This Project is currently optimized only for Universities. So, feel free to make changes in the code as per your requirements.
-
 ### How To Use:
-
 
 > These are the tools we need to run the project on a local server.
 #### Prerequisites:
