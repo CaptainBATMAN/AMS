@@ -5,7 +5,6 @@ _This project is to help people in maintaining their Gmeet audit logs._
 
 ### How To Use:
 
-> These are the tools we need to run the project on a local server.
 #### Prerequisites:
 1. `Mongo CLI`
 2. `Mongo Compass` (For Dumping audit logs into the Database)
