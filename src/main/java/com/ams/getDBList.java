@@ -54,11 +54,6 @@ public class getDBList extends HttpServlet {
             throws ServletException, IOException {
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
-        // ConnectionString connectionString = new
-        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
-        // MongoClientSettings settings =
-        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
-        // MongoClient mongoClient = MongoClients.create(settings);
 
         JSONArray mainarray = new JSONArray();
         MongoIterable<String> DBlist = mongoClient.listDatabaseNames();

@@ -61,11 +61,7 @@ public class facultyHomeAttendanceFetch extends HttpServlet {
 
         ConnectionString connectionString = new ConnectionString("mongodb://127.0.0.1:27017");
         MongoClient mongoClient = MongoClients.create(connectionString);
-        // ConnectionString connectionString = new
-        // ConnectionString("mongodb+srv://admin:Batman123Pass@amscluster.osjva.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
-        // MongoClientSettings settings =
-        // MongoClientSettings.builder().applyConnectionString(connectionString).build();
-        // MongoClient mongoClient = MongoClients.create(settings);
+    
         MongoDatabase database = mongoClient.getDatabase(dbName);
         MongoCollection<org.bson.Document> collection = database.getCollection(collectionName);
 
